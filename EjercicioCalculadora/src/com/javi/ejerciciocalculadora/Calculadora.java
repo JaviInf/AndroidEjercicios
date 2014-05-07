@@ -6,7 +6,7 @@ import android.widget.Button;
 
 public class Calculadora {
 
-	public double operando=0;
+	public double operando1=0;
 	public String operador="";
 	public String display="";
 	public double resultado=0;
@@ -20,31 +20,27 @@ public class Calculadora {
 		 else display=display+digito;// concatenacion de string
     }
  
-	private void operacionPulsado(String operador) {
-		
+	private void operacionPulsado(String operadorNuevo) {
+		operador=operadorNuevo;
+        // compruebo que no ste vacia
+        if(!display.equals("")) operando1=Double.parseDouble(display);
+        //Evitar dos operadores
+        display="";
     }
 	
-//	Button boton=(Button) v;
-//	String operacion=boton.toString();
-//	if(operacion.equals("+")){ 
-//		Log.d("SUMA", "suma");
-//
-//	}
-//	else if(operacion.equals("-")){
-//		Log.d("RESTA", "resta");
-//	}
-//	else if(operacion.equals("x")){
-//		Log.d("MULTIPLICACION", "multiplicacion");
-//	}
-//	else if(operacion.equals("/")){
-//		Log.d("DIVISION", "division");
-//	}
-//	else if(operacion.equals("=")){
-//		Log.d("IGUALDAD", "igual");
-//	}
-//	else if(operacion.equals("Borrar")){
-//		Log.d("BORRAR", "borrar");
-//	}
+	public String calcularOperacion()
+    {
+        double operando2=Double.parseDouble(display);
+        if(operador.equals("+")) resultado=operando1+operando2;
+        else if(operador.equals("-")) resultado=operando1-operando2;
+        else if(operador.equals("*")) resultado=operando1*operando2;
+        else if(operador.equals("/"))resultado=operando1/operando2;
+         
+        System.out.println("el resultado es:::"+resultado);
+        display=String.valueOf(resultado);
+        operando2=0;
+            return String.valueOf(resultado);
+    }
     
 	public int suma(int n1, int n2){//metodo para sumar, recibe dos numeros
         int op; //variable que almacena la respuesta
