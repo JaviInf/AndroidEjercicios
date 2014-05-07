@@ -24,7 +24,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:ems="10"
-        android:text="To" >
+        android:inputType="phone"
+        android:text="@string/to" >
 
         <requestFocus />
     </EditText>
@@ -37,7 +38,8 @@
         android:layout_alignRight="@+id/editText1"
         android:layout_below="@+id/editText1"
         android:ems="10"
-        android:text="Subject" />
+        android:inputType="text"
+        android:text="@string/subject" />
 
     <Button
         android:id="@+id/button1"
@@ -58,6 +60,7 @@
         android:layout_marginTop="16dp"
         android:ems="10"
         android:gravity="center_vertical|top"
-        android:text="Message" />
+        android:inputType="textLongMessage"
+        android:text="@string/message" />
 
 </RelativeLayout>
