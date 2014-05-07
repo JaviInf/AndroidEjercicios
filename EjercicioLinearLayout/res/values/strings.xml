@@ -4,5 +4,15 @@
     <string name="app_name">EjercicioLinearLayout</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="botonA">A</string>
+    <string name="botonB">B</string>
+    <string name="botonC">C</string>
+    <string name="botonD">D</string>
+    <string name="botonE">E</string>
+    <string name="botonF">F</string>
+    <string name="botonG">G</string>
+    <string name="botonH">H</string>
+    <string name="botonI">I</string>
+           
 
 </resources>
