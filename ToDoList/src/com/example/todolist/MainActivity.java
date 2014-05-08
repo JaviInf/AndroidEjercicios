@@ -41,6 +41,7 @@ public class MainActivity extends Activity {
 		Log.d("DEBUG", "boton mas");
 		listado.add(cajaTexto.getText().toString());
 		adaptador.notifyDataSetChanged();
+		cajaTexto.setText("");
 	}
 
 	
@@ -58,7 +59,7 @@ public class MainActivity extends Activity {
 	     super.onRestoreInstanceState(savedInstanceState);
 	     // Restore UI state from the savedInstanceState.
 	     // This bundle has also been passed to onCreate.
-	     savedInstanceState.getStringArrayList("LISTADO");
+	     listado.addAll(savedInstanceState.getStringArrayList("LISTADO"));
 	}
 
 }
