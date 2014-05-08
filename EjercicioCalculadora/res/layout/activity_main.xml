@@ -40,7 +40,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:text="Borrar"
-                android:onClick="operacionPulsado" />
+                android:onClick="obtenerOperador" />
 
         </LinearLayout>
 
@@ -55,7 +55,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="7" 
-                android:onClick="" />
+                android:onClick="obtenerOperando" />
 
             <Button
                 android:id="@+id/num8"
@@ -63,7 +63,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="8" 
-                android:onClick="" />
+                android:onClick="obtenerOperando" />
 
             <Button
                 android:id="@+id/num9"
@@ -71,7 +71,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="9"
-                android:onClick=""  />
+                android:onClick="obtenerOperando"  />
 
             <Button
                 android:id="@+id/opDiv"
@@ -79,7 +79,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="/"
-                android:onClick=""  />
+                android:onClick="obtenerOperador"  />
 
         </LinearLayout>
 
@@ -94,7 +94,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="4" 
-                android:onClick="" />
+                android:onClick="obtenerOperando" />
 
             <Button
                 android:id="@+id/num5"
@@ -102,7 +102,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="5"
-                android:onClick=""  />
+                android:onClick="obtenerOperando"  />
 
             <Button
                 android:id="@+id/num6"
@@ -110,7 +110,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="6"
-                android:onClick=""  />
+                android:onClick="obtenerOperando"  />
 
             <Button
                 android:id="@+id/opX"
@@ -118,7 +118,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="x"
-                android:onClick=""  />
+                android:onClick="obtenerOperador"  />
 
         </LinearLayout>
 
@@ -133,7 +133,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="1" 
-                android:onClick="" />
+                android:onClick="obtenerOperando" />
 
             <Button
                 android:id="@+id/num2"
@@ -141,7 +141,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="2" 
-                android:onClick="" />
+                android:onClick="obtenerOperando" />
 
             <Button
                 android:id="@+id/num3"
@@ -149,7 +149,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="3" 
-                android:onClick="" />
+                android:onClick="obtenerOperando" />
 
             <Button
                 android:id="@+id/opMenos"
@@ -157,7 +157,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="-"
-                android:onClick=""  />
+                android:onClick="obtenerOperador"  />
 
         </LinearLayout>
 
@@ -172,7 +172,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="." 
-                android:onClick="" />
+                android:onClick="obtenerOperador" />
 
             <Button
                 android:id="@+id/num0"
@@ -180,7 +180,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="0" 
-                android:onClick="" />
+                android:onClick="obtenerOperando" />
 
             <Button
                 android:id="@+id/opIgual"
@@ -188,7 +188,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="=" 
-                android:onClick="" />
+                android:onClick="obtenerResultado" />
 
             <Button
                 android:id="@+id/opMas"
@@ -196,7 +196,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="+" 
-                android:onClick="" />
+                android:onClick="obtenerOperador" />
 
         </LinearLayout>
 

@@ -1,7 +1,7 @@
 package com.javi.ejerciciocalculadora;
 
+
 import android.app.Activity;
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,56 +9,64 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
+import android.widget.Button;
+import android.widget.EditText;
 
 public class MainActivity extends Activity {
 
+	EditText display = null;
+	
+	// instancia de calculadora
+	
+	Calculadora calculadora=new Calculadora();
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
-		if (savedInstanceState == null) {
-			getFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-		}
+		
+		 display=(EditText)findViewById(R.id.editText1);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+	
+	public void obtenerOperando(View v){
+		Button boton= (Button) v;
+		String numero=boton.getText().toString();
+		calculadora.numeroPulsado(numero);
+		
+		// display
+		display.setText(numero);
 	}
+	
+	public void obtenerOperador(View v){
+		Button boton=(Button) v;
+		String operador= boton.getText().toString();
+		calculadora.operacionPulsado(operador);
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
+		display.setText(operador);
 	}
-
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment {
-
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_main, container,
-					false);
-			return rootView;
-		}
+	
+	public void obtenerResultado(View v){
+		display.setText(calculadora.calcularOperacion());
+		
+	}
+	
+	
+	// RESTORE VALUES ON LANDSCAPE
+	// Called after onCreate has finished, use to restore UI state @Override
+	public void onRestoreInstanceState(Bundle savedInstanceState) {
+	     super.onRestoreInstanceState(savedInstanceState);
+	     // Restore UI state from the savedInstanceState.
+	     // This bundle has also been passed to onCreate.
+	}
+	
+	public void onSaveInstanceState(Bundle savedInstanceState) {
+	     // Save UI state changes to the savedInstanceState.
+	     // This bundle will be passed to onCreate and
+	     // onRestoreInstanceState if the process is
+	     // killed and restarted by the run time.
+	     super.onSaveInstanceState(savedInstanceState);
 	}
 
 }
