@@ -7,6 +7,7 @@ import android.app.ActionBar;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,6 +35,21 @@ public class MainActivity extends Activity {
 			cajaTexto=(EditText) findViewById(R.id.cajaTexto);
 			listadoView=(ListView) findViewById(R.id.lista);
 			listadoView.setAdapter(adaptador);			
+			cajaTexto.setOnKeyListener(new View.OnKeyListener() {
+				@Override
+				public boolean onKey(View v, int keyCode, KeyEvent event) {
+					// TODO Auto-generated method stub
+					if(event.getAction()==KeyEvent.ACTION_DOWN){
+						if(event.getAction()==KeyEvent.KEYCODE_DPAD_CENTER || (keyCode==KeyEvent.KEYCODE_ENTER)){
+							listado.add(0, cajaTexto.getText().toString());
+							adaptador.notifyDataSetChanged();
+							cajaTexto.setText("");
+							return true;
+						}
+					}
+					return false;
+				}
+			});
 	}
 
 	
@@ -45,6 +61,7 @@ public class MainActivity extends Activity {
 	}
 
 	
+
 	public void onSaveInstanceState(Bundle savedInstanceState) {
 	     // Save UI state changes to the savedInstanceState.
 	     // This bundle will be passed to onCreate and
