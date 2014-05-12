@@ -3,6 +3,7 @@ package com.example.todolist;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,7 +27,7 @@ public class FargmentDisplay extends Fragment {
 	  // If this Fragment has no UI then return null.
 	 View v= inflater.inflate(R.layout.fragment_display, container, false);
 	 
-	  EditText cajaTexto = (EditText) v.findViewById(R.id.editText1);
+	  final EditText cajaTexto = (EditText) v.findViewById(R.id.editText1);
 	  Button botonMas= (Button) v.findViewById(R.id.anadir);
 	  
 	  botonMas.setOnClickListener(new OnClickListener() {
@@ -34,7 +35,10 @@ public class FargmentDisplay extends Fragment {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			
+			String nuevaEntrada=cajaTexto.getText().toString();
+			mainActivity.obtenerTexto(nuevaEntrada);
+			cajaTexto.setText("");
+			Log.d("DISPLAY", "nuevo texto enviado al main:   "+nuevaEntrada);
 		}
 	});
 	  
