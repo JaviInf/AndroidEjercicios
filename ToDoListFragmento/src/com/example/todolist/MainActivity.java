@@ -8,10 +8,8 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
+
 
 
 
@@ -19,7 +17,6 @@ public class MainActivity extends Activity implements InterfazDisplay{
 	
 	private ArrayList<String> listado;
 	private ArrayAdapter<String> adaptador;
-	private EditText cajaTexto;
 	
 	 FragmentList fragmentList;
 	
@@ -27,28 +24,30 @@ public class MainActivity extends Activity implements InterfazDisplay{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-		listado= new ArrayList<String>();
-		adaptador= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,listado);
+	//	FragmentList fragmento=new FragmentList();
 		
 		//FragmentManager
+		if(savedInstanceState==null){
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		fragmentTransaction.add(R.id.containerDisplay, new FargmentDisplay());
-		fragmentTransaction.add(R.id.containerList, new FragmentList());
+		fragmentTransaction.add(R.id.containerList,new FragmentList(), "list");
 		fragmentTransaction.commit();
-	
+		}
 		
-		fragmentList = (FragmentList)fragmentManager.findFragmentById(R.id.containerList);
-		//fragmentList.setListAdapter(adaptador);
+//		listado= new ArrayList<String>();
+//		adaptador= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,listado);
+//		fragmento.setListAdapter(adaptador);
+		
 	}
 
 
 	@Override
-	public void obtenerTexto(String nuevaEntrada) {
+	public void a–adirItem(String nuevaEntrada) {
 		// TODO Auto-generated method stub
-		 listado.add(nuevaEntrada);
-	     adaptador.notifyDataSetChanged();
+//		 listado.add(nuevaEntrada);
+//	     adaptador.notifyDataSetChanged();
+		((FragmentList)getFragmentManager().findFragmentByTag("list")).addItem(nuevaEntrada);
 	}
 
 }

@@ -14,7 +14,7 @@ import android.widget.EditText;
 public class FargmentDisplay extends Fragment {
 	
 	public interface InterfazDisplay {
-        public void obtenerTexto(String pTexto);
+        public void a–adirItem(String pTexto);
     }
 	
 	private InterfazDisplay mainActivity;
@@ -36,7 +36,7 @@ public class FargmentDisplay extends Fragment {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			String nuevaEntrada=cajaTexto.getText().toString();
-			mainActivity.obtenerTexto(nuevaEntrada);
+			mainActivity.a–adirItem(nuevaEntrada);
 			cajaTexto.setText("");
 			Log.d("DISPLAY", "nuevo texto enviado al main:   "+nuevaEntrada);
 		}
