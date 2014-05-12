@@ -1,0 +1,19 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <fragment
+        android:id="@+id/fragment1"
+        android:name="com.javi.calculadora.FragmentoDisplay"
+        android:layout_width="match_parent"
+        android:layout_height="123dp" />
+
+    <fragment
+        android:id="@+id/fragment2"
+        android:name="com.javi.calculadora.FragmentoTeclado"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2" />
+
+</LinearLayout>
