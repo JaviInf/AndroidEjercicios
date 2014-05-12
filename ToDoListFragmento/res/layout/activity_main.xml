@@ -4,6 +4,7 @@
     android:orientation="vertical" >
 
     <FrameLayout
+        android:id="@+id/containerDisplay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1" >
@@ -11,6 +12,7 @@
     </FrameLayout>
 
     <FrameLayout
+        android:id="@+id/containerList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="4" >
