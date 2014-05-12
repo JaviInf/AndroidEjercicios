@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.ListFragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,11 +28,19 @@ public class FragmentList extends ListFragment{
 		adaptador.notifyDataSetChanged();
 	}
 	
-	public void onSavedInstanceState(Bundle inState){
-		super.onActivityCreated(inState);
-		if(inState!=null){
-			
-		}
+	@Override
+	public void onActivityCreated(Bundle inState) {
+        super.onActivityCreated(inState);
+        if (inState != null) {    		
+			// AÐadir a la lista
+			listado.addAll(inState.getStringArrayList("listado"));
+			adaptador.notifyDataSetChanged();
+        }
 	}
 
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		outState.putStringArrayList("listado", listado);
+		super.onSaveInstanceState(outState);
+	}
 }
