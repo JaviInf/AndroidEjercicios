@@ -71,14 +71,7 @@ public class MainActivity extends Activity {
 		
 		botonContacto.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-//				Intent intent = new Intent();
-//				intent.setComponent(new ComponentName(
-//				     "com.android.contacts"
-//				    ,"com.android.contacts.DialtactsContactsEntryActivity"));	        
-//				startActivityForResult(intent,PICK_CONTACT_REQUEST); 
-//			}
-//				Intent i= new Intent(Intent.ACTION_PICK,People.CONTENT_URI); 
-//				startActivityForResult(i,PICK_CONTACT_FROM_LIST); }
+
 				Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
 				startActivityForResult(intent, PICK_CONTACT);}
 		});
@@ -100,6 +93,7 @@ public class MainActivity extends Activity {
 
 			}
 			break;
+			
 		case (REQUEST_IMAGE_CAPTURE):
 			if (resultCode == RESULT_OK) {
 		        Bundle extras = data.getExtras();
@@ -109,14 +103,26 @@ public class MainActivity extends Activity {
 			break;
 			
 		case (PICK_CONTACT):
+			String cNumber = null;
 			if (resultCode == RESULT_OK) {
 				 Uri contactData = data.getData();
 		            Cursor c =  managedQuery(contactData, null, null, null, null);
-		            if (c.moveToFirst()) {
-		              String name = c.getString(c.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
-		              texto.setText(name);
-		            }
-		    }
+		         
+		            	if (c.moveToFirst()) {
+		                    String id =c.getString(c.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
+		                    String hasPhone =c.getString(c.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
+
+		                      if (hasPhone.equalsIgnoreCase("1")) {
+		                     Cursor phones = getContentResolver().query( 
+		                                  ContactsContract.CommonDataKinds.Phone.CONTENT_URI,null, 
+		                                  ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = "+ id, 
+		                                  null, null);
+		                        phones.moveToFirst();
+		                        cNumber = phones.getString(phones.getColumnIndex("data1"));
+		                      }
+		                    String name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+		                    texto.setText("NUMERO: "+cNumber+" NOMBRE: "+name);
+		            	}}
 			break;
 		}
 	}
