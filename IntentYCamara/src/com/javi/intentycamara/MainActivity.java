@@ -3,7 +3,9 @@ package com.javi.intentycamara;
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,6 +20,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.os.Build;
+import android.provider.Contacts;
+import android.provider.Contacts.People;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 
 public class MainActivity extends Activity {
@@ -26,6 +31,8 @@ public class MainActivity extends Activity {
 	private static final int RESULTADO = 0;
 	private static final int FORMULARIO = 1;
 	static final int REQUEST_IMAGE_CAPTURE = 2;
+	protected static final int PICK_CONTACT_FROM_LIST = 3;
+	protected static final int PICK_CONTACT=4;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +71,16 @@ public class MainActivity extends Activity {
 		
 		botonContacto.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				
-			}
+//				Intent intent = new Intent();
+//				intent.setComponent(new ComponentName(
+//				     "com.android.contacts"
+//				    ,"com.android.contacts.DialtactsContactsEntryActivity"));	        
+//				startActivityForResult(intent,PICK_CONTACT_REQUEST); 
+//			}
+//				Intent i= new Intent(Intent.ACTION_PICK,People.CONTENT_URI); 
+//				startActivityForResult(i,PICK_CONTACT_FROM_LIST); }
+				Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+				startActivityForResult(intent, PICK_CONTACT);}
 		});
 
 	}
@@ -90,6 +105,17 @@ public class MainActivity extends Activity {
 		        Bundle extras = data.getExtras();
 		        Bitmap imageBitmap = (Bitmap) extras.get("data");
 		        imagen.setImageBitmap(imageBitmap);
+		    }
+			break;
+			
+		case (PICK_CONTACT):
+			if (resultCode == RESULT_OK) {
+				 Uri contactData = data.getData();
+		            Cursor c =  managedQuery(contactData, null, null, null, null);
+		            if (c.moveToFirst()) {
+		              String name = c.getString(c.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
+		              texto.setText(name);
+		            }
 		    }
 			break;
 		}
