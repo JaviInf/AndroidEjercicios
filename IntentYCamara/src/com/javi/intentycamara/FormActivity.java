@@ -24,9 +24,7 @@ public static final String MESSAGE="resultado";
 		
 		final Intent intent=getIntent();
 		Bundle bundle = intent.getExtras();
-		
 		texto.setText(bundle.getString(MESSAGE));
-		
 		
 		botonAceptar.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
@@ -44,6 +42,8 @@ public static final String MESSAGE="resultado";
 	           finish();
 	        }
 	    });
+		
+		
 	}
 
 	
