@@ -24,6 +24,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,6 +38,8 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		Log.d("TAG", " ejecucion de on create");
 
+		TextView informacion=(TextView)findViewById(R.id.informacion);
+		
 		Button boton = (Button) findViewById(R.id.consultaJson);
 		boton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
@@ -70,34 +73,49 @@ public class MainActivity extends Activity {
 				.parse("http://developer.android.com/shareables/icon_templates-v4.0.zip");
 		DownloadManager.Request request = new Request(uri);
 		request.setNotificationVisibility(Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-		request.setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOWNLOADS,"DescargaEjercicioInternet.zip");
-		//request.setAllowedNetworkTypes(Request.NETWORK_WIFI);
+		request.setDestinationInExternalFilesDir(this,
+				Environment.DIRECTORY_DOWNLOADS,
+				"DescargaEjercicioInternet.zip");
 		final long reference = downloadManager.enqueue(request);
-
-		
-		// registrar el receiver 
-		registrarRecibidor(reference);
-		
-		
+		// registrar el receiver
+		registrarRecibidor(reference, downloadManager);
 
 	}
 
-	private void registrarRecibidor(final Long referencia) {
+	private void registrarRecibidor(final Long referencia, final DownloadManager manager) {
 		IntentFilter filter = new IntentFilter(
 				DownloadManager.ACTION_DOWNLOAD_COMPLETE);
 		BroadcastReceiver receiver = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context context, Intent intent) {
 				// TODO Auto-generated method stub
-				long referenceNueva = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+				long referenceNueva = intent.getLongExtra(
+						DownloadManager.EXTRA_DOWNLOAD_ID, -1);
 				if (referencia == referenceNueva) {
-			        // TODO Do something with the file.
-					Log.d("RECEIVER", "Se ha ejecutado el revicidor de descarfa completada");
-			}
+					
+					Query completadoQuery=new Query();
+					completadoQuery.setFilterById(referencia);
+					
+					Cursor completadoCursor= manager.query(completadoQuery);
+					int identificadorNombre=completadoCursor.getColumnIndex(manager.COLUMN_LOCAL_FILENAME);
+					int identificadorTama–o=completadoCursor.getColumnIndex(manager.COLUMN_TOTAL_SIZE_BYTES);
+					String nombre = null;
+					String tama–o = null;
+					while (completadoCursor.moveToNext()) {
+					   nombre = completadoCursor.getString(identificadorNombre);
+					   tama–o = completadoCursor.getString(identificadorTama–o);
+					   
+					}
+					completadoCursor.close();
+					
+					TextView informacion=(TextView)findViewById(R.id.informacion);
+					informacion.setText("NOMBRE: "+nombre+"  TAMA„O: "+tama–o);					
+					
+				}
 			}
 		};
 		registerReceiver(receiver, filter);
-		
+
 	}
 
 	public void realizarConsulta() {
