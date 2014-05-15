@@ -93,6 +93,8 @@ public class MainActivity extends Activity {
 						DownloadManager.EXTRA_DOWNLOAD_ID, -1);
 				if (referencia == referenceNueva) {
 					
+					// Realizar consulta
+					
 					Query completadoQuery=new Query();
 					completadoQuery.setFilterById(referencia);
 					
@@ -108,8 +110,10 @@ public class MainActivity extends Activity {
 					}
 					completadoCursor.close();
 					
-					TextView informacion=(TextView)findViewById(R.id.informacion);
-					informacion.setText("NOMBRE: "+nombre+"  TAMA„O: "+tama–o);					
+					TextView ruta=(TextView)findViewById(R.id.informacion);
+					TextView tama–oFichero=(TextView)findViewById(R.id.tamano);
+					ruta.setText("Ruta y nombre: "+nombre);
+					tama–oFichero.setText("Tama–o: "+tama–o);
 					
 				}
 			}
