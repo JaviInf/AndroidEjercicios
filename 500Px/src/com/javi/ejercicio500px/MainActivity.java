@@ -10,7 +10,17 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import android.app.Activity;
+import android.app.DownloadManager;
+import android.app.DownloadManager.Query;
+import android.app.DownloadManager.Request;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,73 +29,118 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
 public class MainActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		 Log.d("TAG", " ejecucion de on create");
-		 
+		Log.d("TAG", " ejecucion de on create");
+
 		Button boton = (Button) findViewById(R.id.consultaJson);
 		boton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				 Log.d("TAG", " creacion de un nuevo thread");
+				Log.d("TAG", " creacion de un nuevo thread");
 				Thread t = new Thread(new Runnable() {
 					public void run() {
-						 Log.d("TAG", " ejecucion de un nuevo thread");
+						Log.d("TAG", " ejecucion de un nuevo thread");
 						realizarConsulta();
 					}
 				});
 				t.start();
 			}
 		});
+
+		Button botonDescarga = (Button) findViewById(R.id.descarga);
+
+		botonDescarga.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+				realizarDescarga();
+			}
+		});
+
 	}
-	
+
+	protected void realizarDescarga() {
+		// TODO Auto-generated method stub
+		String serviceString = Context.DOWNLOAD_SERVICE;
+		DownloadManager downloadManager;
+		downloadManager = (DownloadManager) getSystemService(serviceString);
+		Uri uri = Uri
+				.parse("http://developer.android.com/shareables/icon_templates-v4.0.zip");
+		DownloadManager.Request request = new Request(uri);
+		request.setNotificationVisibility(Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+		request.setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOWNLOADS,"DescargaEjercicioInternet.zip");
+		//request.setAllowedNetworkTypes(Request.NETWORK_WIFI);
+		final long reference = downloadManager.enqueue(request);
+
+		
+		// registrar el receiver 
+		registrarRecibidor(reference);
+		
+		
+
+	}
+
+	private void registrarRecibidor(final Long referencia) {
+		IntentFilter filter = new IntentFilter(
+				DownloadManager.ACTION_DOWNLOAD_COMPLETE);
+		BroadcastReceiver receiver = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				// TODO Auto-generated method stub
+				long referenceNueva = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+				if (referencia == referenceNueva) {
+			        // TODO Do something with the file.
+					Log.d("RECEIVER", "Se ha ejecutado el revicidor de descarfa completada");
+			}
+			}
+		};
+		registerReceiver(receiver, filter);
+		
+	}
+
 	public void realizarConsulta() {
-		 Log.d("TAG", "se esta realizando la consulta");
+		Log.d("TAG", "se esta realizando la consulta");
 		String myFeed = "http://www.arkaitzgarro.com/android/photos.json";
 		try {
-		  URL url = new URL(myFeed);
-		
-		// Create a new HTTP URL connection
-		URLConnection connection = url.openConnection();
-		HttpURLConnection httpConnection = (HttpURLConnection)connection;
-		int responseCode = httpConnection.getResponseCode();
-		if (responseCode == HttpURLConnection.HTTP_OK) {
-			Log.d("TAG", "CONSULTA SATISFACTORIA");
-		  InputStream in = httpConnection.getInputStream();
-		  procesarConsulta(in);
-		  
+			URL url = new URL(myFeed);
+
+			// Create a new HTTP URL connection
+			URLConnection connection = url.openConnection();
+			HttpURLConnection httpConnection = (HttpURLConnection) connection;
+			int responseCode = httpConnection.getResponseCode();
+			if (responseCode == HttpURLConnection.HTTP_OK) {
+				Log.d("TAG", "CONSULTA SATISFACTORIA");
+				InputStream in = httpConnection.getInputStream();
+				procesarConsulta(in);
+
+			}
+		} catch (MalformedURLException e) {
+			Log.d("TAG", "Malformed URL Exception.", e);
+		} catch (IOException e) {
+			Log.d("TAG", "IO Exception.", e);
 		}
-		}
-		catch (MalformedURLException e) {
-		  Log.d("TAG", "Malformed URL Exception.", e);
-		}
-		catch (IOException e) {
-		  Log.d("TAG", "IO Exception.", e);
-		}
-		
+
 	}
 
 	private void procesarConsulta(InputStream in) {
 		Log.d("TAG", "empieza procesamiento de respuesta");
-		 BufferedReader br = new BufferedReader(new InputStreamReader(in));
-         StringBuilder sb = new StringBuilder();
-         String line = null;
-          
-         try {
+		BufferedReader br = new BufferedReader(new InputStreamReader(in));
+		StringBuilder sb = new StringBuilder();
+		String line = null;
+
+		try {
 			while ((line = br.readLine()) != null) {
-			        sb.append(line + "\n");
-			    }
+				sb.append(line + "\n");
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-          
-         Log.d("TAG",sb.toString());
-         try {
-			JSONObject json= new JSONObject(sb.toString());
+
+		Log.d("TAG", sb.toString());
+		try {
+			JSONObject json = new JSONObject(sb.toString());
 			procesareJSON(json);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -94,21 +149,22 @@ public class MainActivity extends Activity {
 	}
 
 	private void procesareJSON(JSONObject json) {
-		 String[] imagenes;
-		 try {
-			JSONArray fotos=(JSONArray)json.getJSONArray("photos");
-			//  Log.d("TAG","fotos.....:   "+fotos);
-			imagenes= new String[fotos.length()];
-			for(int i=0; i<fotos.length(); i++){
-				JSONObject imagen= fotos.getJSONObject(i);
-				 imagenes[i]= imagen.getString("image_url");
-                 Log.i("TAG","imagen en la posicion array "+i+","+imagenes[i]);
+		String[] imagenes;
+		try {
+			JSONArray fotos = json.getJSONArray("photos");
+			// Log.d("TAG","fotos.....:   "+fotos);
+			imagenes = new String[fotos.length()];
+			for (int i = 0; i < fotos.length(); i++) {
+				JSONObject imagen = fotos.getJSONObject(i);
+				imagenes[i] = imagen.getString("image_url");
+				Log.i("TAG", "imagen en la posicion array " + i + ","
+						+ imagenes[i]);
 			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 }

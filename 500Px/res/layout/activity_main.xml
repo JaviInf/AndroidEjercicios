@@ -17,6 +17,12 @@
             android:layout_height="wrap_content"
             android:text="Traer Datos" />
 
+        <Button
+            android:id="@+id/descarga"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Realizar Descarga" />
+
     </LinearLayout>
 
 </FrameLayout>
