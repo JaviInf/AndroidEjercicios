@@ -101,7 +101,7 @@ public class MainActivity extends Activity {
 			imagenes= new String[fotos.length()];
 			for(int i=0; i<fotos.length(); i++){
 				JSONObject imagen= fotos.getJSONObject(i);
-				 imagenes[i]=(String) imagen.get("image_url");
+				 imagenes[i]= imagen.getString("image_url");
                  Log.i("TAG","imagen en la posicion array "+i+","+imagenes[i]);
 			}
 		} catch (JSONException e) {
