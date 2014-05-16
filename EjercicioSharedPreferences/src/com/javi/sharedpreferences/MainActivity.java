@@ -16,11 +16,12 @@ import android.os.Build;
 
 public class MainActivity extends Activity {
 
-	private static final String INTERNET = "internet";
-	private static final String AUTOREFESH ="autorefresh";
-	private String MY_PREFS;
-	TextView autorefres;
-	SharedPreferences mySharedPreferences;
+	public static final String INTERNET = "internet";
+	public static final String AUTOREFESH ="autorefresh";
+	public static String MY_PREFS="preferencias";
+	private TextView autorefres;
+	private TextView internet;
+	private SharedPreferences mySharedPreferences;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +29,9 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		autorefres=(TextView)findViewById(R.id.textView1);
-		TextView internet=(TextView) findViewById(R.id.textView2);
-		mySharedPreferences = getSharedPreferences(MY_PREFS,
-                Activity.MODE_PRIVATE);
+		internet=(TextView) findViewById(R.id.textView2);
 		
-			autorefres.setText("AutoRefesh:"+mySharedPreferences.getBoolean(AUTOREFESH, false));
+		//autorefres.setText("AutoRefesh:"+mySharedPreferences.getBoolean(AUTOREFESH, false));
 			
 
 
@@ -55,7 +54,6 @@ public class MainActivity extends Activity {
 		if (id == R.id.action_settings) {
 			Intent intent = new Intent(MainActivity.this, SettinsActivity.class);
             startActivity(intent);
-          //  finish(); // finaliza la actividad "Adios"
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -64,7 +62,11 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onResume(){
 		super.onResume();
+		mySharedPreferences = getSharedPreferences(MY_PREFS,
+                Activity.MODE_PRIVATE);
+		
 		autorefres.setText("AutoRefesh:"+mySharedPreferences.getBoolean(AUTOREFESH, false));
+		internet.setText("Internet: "+mySharedPreferences.getString(INTERNET, "5 minutos"));
 		
 	}
 }

@@ -17,10 +17,7 @@ import android.widget.ToggleButton;
 import android.os.Build;
 
 public class SettinsActivity extends Activity {
-
-	private static final String MY_PREFS = null;
-	private static final String INTERNET ="internet";
-	private static final String AUTOREFESH ="autorefresh";
+	
 	private SharedPreferences mySharedPreferences;
 	private ToggleButton togleAutorefresh;
 	private Spinner spinnerInternet;
@@ -30,7 +27,7 @@ public class SettinsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_settins);
 		
-		mySharedPreferences = getSharedPreferences(MY_PREFS,
+		mySharedPreferences = getSharedPreferences(MainActivity.MY_PREFS,
                 Activity.MODE_PRIVATE);
 	
 		 togleAutorefresh= (ToggleButton) findViewById(R.id.autorefresh);
@@ -38,12 +35,14 @@ public class SettinsActivity extends Activity {
 		
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
 		        R.array.tiposInternet, android.R.layout.simple_spinner_item);
+		
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinnerInternet.setAdapter(adapter);
 		
 		 SharedPreferences.Editor editor = mySharedPreferences.edit();
 		
-		togleAutorefresh.setChecked(mySharedPreferences.getBoolean(AUTOREFESH, false));
+		togleAutorefresh.setChecked(mySharedPreferences.getBoolean(MainActivity.AUTOREFESH, false));
+	
 				
 		
 	}
@@ -52,8 +51,8 @@ public class SettinsActivity extends Activity {
 	  protected void onPause() {
 	         super.onPause();
 	         SharedPreferences.Editor editor = mySharedPreferences.edit();
-	         editor.putBoolean(AUTOREFESH, togleAutorefresh.isChecked());
-	      //   editor.putString(INTERNET, spinnerInternet.)
+	         editor.putBoolean(MainActivity.AUTOREFESH, togleAutorefresh.isChecked());
+	     //   editor.putString(MainActivity.INTERNET, spinnerInternet.)
 	         editor.apply();
 	     }
 
