@@ -10,6 +10,7 @@
           	android:key="checkboxPref" />
 
          <ListPreference 
+             android:dialogTitle="Frecuencia de autorefresco"
     		android:key="intervalo_refresco"
     		android:title="Intervalo"
     		android:defaultValue="15"
@@ -19,6 +20,7 @@
          
     <PreferenceCategory android:title="Preferencias de earthquakes">
          <ListPreference 
+              android:dialogTitle="Magnitud de los terremotos"
     		android:key="magnitud_terremotos"
     		android:defaultValue="5"
     		android:title="Magnitud terremotos"
