@@ -7,5 +7,6 @@
     <string name="title_activity_settins">SettinsActivity</string>
     <string name="title_activity_preferencias">PreferenciasActivity</string>
     <string name="title_activity_my_preference_fragment">MyPreferenceFragment</string>
+     <string name="autorefresh">autrorefresh</string>
 
 </resources>
