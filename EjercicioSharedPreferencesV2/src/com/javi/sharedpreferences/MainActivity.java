@@ -32,7 +32,6 @@ public class MainActivity extends Activity {
 		autorefres=(TextView)findViewById(R.id.textView1);
 		internet=(TextView) findViewById(R.id.textView2);
 		
-		//autorefres.setText("AutoRefesh:"+mySharedPreferences.getBoolean(AUTOREFESH, false));
 			
 
 

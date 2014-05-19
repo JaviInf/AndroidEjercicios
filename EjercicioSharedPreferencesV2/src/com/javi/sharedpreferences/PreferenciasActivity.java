@@ -11,4 +11,7 @@ public class PreferenciasActivity extends PreferenceActivity {
 	      loadHeadersFromResource(R.xml.userpreferenceheaders, target);
 
 	}
+//	public void onCreate(Bundle savedInstanceState) { 
+//        super.onCreate(savedInstanceState); addPreferencesFromResource(R.xml.userpreferences);
+//    }
 	}

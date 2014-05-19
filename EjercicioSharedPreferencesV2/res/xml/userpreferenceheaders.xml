@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
   <header android:fragment="com.javi.sharedpreferences.MyPreferenceFragment"
-         
           android:title="Mis preferencias"
           android:summary="Descripcion de las preferencias" />
+ 
+  <header 
+          android:title="Preferencias de red"
+          android:summary="Preferencias de conexion del telefono">
+      <intent 
+            android:action="android.settings.WIRELESS_SETTINGS"/>
+  </header>
+ 
   
 </preference-headers>
