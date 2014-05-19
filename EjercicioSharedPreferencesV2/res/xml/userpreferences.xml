@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="Intent preference"
+    android:summary="System preference imported using an intent">
+    <intent android:action="android.settings.DISPLAY_SETTINGS"/>
+    <PreferenceCategory android:title="Preferencias de earthquakes">
+         <CheckBoxPreference
+          	android:title="Autorefresh"
+          	android:defaultValue="true"
+         	android:summary="Autorefresco de la aplicacion"
+          	android:key="checkboxPref" />
+         
+         <ListPreference 
+    		android:key="intervalo_refresco"
+    		android:title="Intervalo"
+    		android:entries="@array/tiposInternet"
+   			android:entryValues="@array/numInternet"/>
+         
+           <ListPreference 
+    		android:key="magnitud_terremotos"
+    		android:title="Magnitud terremotos"
+    		android:entries="@array/magnitudes"
+   			android:entryValues="@array/valorMagnitudes"/>
+         
+</PreferenceCategory>
+
+ </PreferenceScreen>

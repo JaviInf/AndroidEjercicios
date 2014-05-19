@@ -23,16 +23,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.javi.sharedpreferences.SettinsActivity"
-            android:label="@string/title_activity_settins" >
-        </activity>
-        <activity
             android:name="com.javi.sharedpreferences.PreferenciasActivity"
             android:label="@string/title_activity_preferencias" >
-        </activity>
-        <activity
-            android:name="com.javi.sharedpreferences.SettingsActivity"
-            android:label="@string/title_activity_settings" >
         </activity>
         <activity
             android:name="com.javi.sharedpreferences.MyPreferenceFragment"
