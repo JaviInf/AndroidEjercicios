@@ -16,6 +16,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.content.Intent;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
@@ -28,7 +29,9 @@ import android.view.ViewGroup;
 import android.os.Build;
 
 public class MainActivity extends Activity {
-
+	
+	private static final int SHOW_PREFERENCES = 0;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -44,82 +47,8 @@ public class MainActivity extends Activity {
 		bd.open();
 		bd.insert(1, "prueba", 2, "detalle prueba", 4.34, 2.23,1.2, "web", 33, 11);
 		
-		Thread t = new Thread(new Runnable() {
-			public void run() {
-				Log.d("TAG", " ejecucion de un nuevo thread");
-				realizarConsulta();
-			}
+		//JSONObject json =  ResourceParser.getJSONObject("http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson");
 
-			private void realizarConsulta() {
-				Log.d("TAG", "se esta realizando la consulta");
-				String myFeed = "http://www.arkaitzgarro.com/android/photos.json";
-				try {
-					URL url = new URL(myFeed);
-
-					// Create a new HTTP URL connection
-					URLConnection connection = url.openConnection();
-					HttpURLConnection httpConnection = (HttpURLConnection) connection;
-					int responseCode = httpConnection.getResponseCode();
-					if (responseCode == HttpURLConnection.HTTP_OK) {
-						Log.d("JSON", "CONSULTA SATISFACTORIA");
-						InputStream in = httpConnection.getInputStream();
-						procesarConsulta(in);
-
-					}
-				} catch (MalformedURLException e) {
-					Log.d("TAG", "Malformed URL Exception.", e);
-				} catch (IOException e) {
-					Log.d("TAG", "IO Exception.", e);
-				}
-
-				
-			}
-
-			private void procesarConsulta(InputStream in) {
-				// TODO Auto-generated method stub
-				Log.d("TAG", "empieza procesamiento de respuesta");
-				BufferedReader br = new BufferedReader(new InputStreamReader(in));
-				StringBuilder sb = new StringBuilder();
-				String line = null;
-
-				try {
-					while ((line = br.readLine()) != null) {
-						sb.append(line + "\n");
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-
-				Log.d("TAG", sb.toString());
-				try {
-					JSONObject json = new JSONObject(sb.toString());
-					procesareJSON(json);
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-
-			private void procesareJSON(JSONObject json) {
-				String[] imagenes;
-				try {
-					JSONArray fotos = json.getJSONArray("photos");
-					// Log.d("TAG","fotos.....:   "+fotos);
-					imagenes = new String[fotos.length()];
-					for (int i = 0; i < fotos.length(); i++) {
-						JSONObject imagen = fotos.getJSONObject(i);
-						imagenes[i] = imagen.getString("image_url");
-						Log.i("TAG", "imagen en la posicion array " + i + ","
-								+ imagenes[i]);
-					}
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}				
-			}
-		});
-		t.start();
-		
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
@@ -141,6 +70,8 @@ public class MainActivity extends Activity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
+			Intent intent = new Intent(MainActivity.this, PreferenciasActivity.class);
+			startActivityForResult(intent, SHOW_PREFERENCES);
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -161,6 +92,29 @@ public class MainActivity extends Activity {
 					false);
 			return rootView;
 		}
+	}
+	
+	private void getEarthQuakes() {
+		Thread t = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				JSONObject json =  MiJSON.realizarConsulta("http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson");
+				try {
+					JSONArray arrayFeatures = json.getJSONArray("features");
+					for(int i=0; i< arrayFeatures.length(); i++) {
+						JSONObject eq = arrayFeatures.getJSONObject(i);
+						JSONObject props =  eq.getJSONObject("properties");
+						JSONArray coordinates =  eq.getJSONObject("geometry").getJSONArray("coordinates");
+						
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		t.start();
 	}
 
 }
