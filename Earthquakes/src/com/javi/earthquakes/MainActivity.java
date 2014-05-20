@@ -23,9 +23,9 @@ public class MainActivity extends Activity {
 		DatabaseErrorHandler errorHandler = null;
 		
 		
-		EarthquakesDBOpenHelper bd= new EarthquakesDBOpenHelper(this, EarthquakesDBOpenHelper.DATABASE_NAME, null, EarthquakesDBOpenHelper.DATABASE_VERSION, errorHandler);
-		bd.getWritableDatabase();
-		
+//		EarthquakesDBOpenHelper bd= new EarthquakesDBOpenHelper(this, EarthquakesDBOpenHelper.DATABASE_NAME, null, EarthquakesDBOpenHelper.DATABASE_VERSION, errorHandler);
+//		bd.getWritableDatabase();
+//		
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
