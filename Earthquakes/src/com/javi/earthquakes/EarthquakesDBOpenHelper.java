@@ -8,13 +8,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class EarthquakesDBOpenHelper extends SQLiteOpenHelper{
 	
-	private static final String DATABASE_NAME = "earthquakes.db";
+	public static final String DATABASE_NAME = "earthquakes.db";
 	private static final String DATABASE_TABLE = "Earthquakes";
-	private static final int DATABASE_VERSION = 1;
+	public static final int DATABASE_VERSION = 1;
 	
 	private static final String DATABASE_CREATE = "CREATE TABLE IF NOT EXISTS "+DATABASE_TABLE+"(_id PRIMARY KEY,"+
 																								"place TEXT,"+
-																								"time TIMESTAMP,"+
+																								"time INTEGER,"+
 																								"detail TEXT,"+
 																								"magnitude REAl,"+
 																								"lat REAL,"+
