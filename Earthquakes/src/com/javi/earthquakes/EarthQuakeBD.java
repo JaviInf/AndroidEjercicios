@@ -66,7 +66,6 @@ public class EarthQuakeBD {
 		Cursor cursor=database.query(EarthquakesDBOpenHelper.DATABASE_TABLE,result_columns, where,whereArgs, groupBy, having, order);
 		Log.d("EARTHQUAKEBD", "QUERY de terremotos");
 		return cursor;
-		
 	}
 
 	public void update(int id) {
