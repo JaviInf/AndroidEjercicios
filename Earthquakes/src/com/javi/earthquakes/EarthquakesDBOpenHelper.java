@@ -9,19 +9,30 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class EarthquakesDBOpenHelper extends SQLiteOpenHelper{
 	
 	public static final String DATABASE_NAME = "earthquakes.db";
-	private static final String DATABASE_TABLE = "Earthquakes";
+	public static final String DATABASE_TABLE = "Earthquakes";
 	public static final int DATABASE_VERSION = 1;
 	
-	private static final String DATABASE_CREATE = "CREATE TABLE IF NOT EXISTS "+DATABASE_TABLE+"(_id PRIMARY KEY,"+
-																								"place TEXT,"+
-																								"time INTEGER,"+
-																								"detail TEXT,"+
-																								"magnitude REAl,"+
-																								"lat REAL,"+
-																								"long REAL,"+
-																								"url TEXT,"+
-																								"created_at INTEGER,"+
-																								"updated_at INTEGER)";
+	public static final String ID = "_id";
+	public static final String PLACE = "place";
+	public static final String TIME = "time";
+	public static final String DETAIL = "detail";
+	public static final String MAGNITUDE = "magnitude";
+	public static final String  LAT = "lat";
+	public static final String LONG = "long";
+	public static final String URL = "url";
+	public static final String CREATED_AT = "created_at";
+	public static final String UPDATED_AT = "updated_at";
+	
+	private static final String DATABASE_CREATE = "CREATE TABLE IF NOT EXISTS "+DATABASE_TABLE+"("+ID+" PRIMARY KEY,"+
+																								PLACE+" TEXT,"+
+																								TIME+" INTEGER,"+
+																								DETAIL+" TEXT,"+
+																								MAGNITUDE+" REAl,"+
+																								LAT+" REAL,"+
+																								LONG+" REAL,"+
+																								URL+" TEXT,"+
+																								CREATED_AT+" INTEGER,"+
+																								UPDATED_AT+" INTEGER)";
 	
 	public EarthquakesDBOpenHelper(Context context, String name,
 			CursorFactory factory, int version,

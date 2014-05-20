@@ -26,6 +26,9 @@ public class MainActivity extends Activity {
 //		EarthquakesDBOpenHelper bd= new EarthquakesDBOpenHelper(this, EarthquakesDBOpenHelper.DATABASE_NAME, null, EarthquakesDBOpenHelper.DATABASE_VERSION, errorHandler);
 //		bd.getWritableDatabase();
 //		
+		EarthQuakeBD bd=new EarthQuakeBD(this);
+		bd.open();
+		bd.insert(1, "prueba", 2, "detalle prueba", 4.34, 2.23,1.2, "web", 33, 11);
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
