@@ -1,5 +1,7 @@
 package com.javi.earthquakes;
 
+import java.util.ArrayList;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -88,6 +90,53 @@ public class EarthQuakeBD {
 		Cursor cursor=database.query(EarthquakesDBOpenHelper.DATABASE_TABLE,result_columns, where,whereArgs, groupBy, having, order);
 		Log.d("EARTHQUAKEBD", "QUERY de terremotos");
 		return cursor;
+	}
+	
+	public ArrayList<Quakes> getTerremotos(double magnitude){
+		ArrayList<Quakes> list= new ArrayList<Quakes>();
+		String whereArgs[]={String.valueOf(magnitude)};
+		 String[] result_columns = new String[] {EarthquakesDBOpenHelper.ID, EarthquakesDBOpenHelper.ID_STR,EarthquakesDBOpenHelper.PLACE,
+				 EarthquakesDBOpenHelper.TIME,EarthquakesDBOpenHelper.DETAIL,EarthquakesDBOpenHelper.MAGNITUDE,EarthquakesDBOpenHelper.LAT, 
+				 EarthquakesDBOpenHelper.LONG, EarthquakesDBOpenHelper.URL,EarthquakesDBOpenHelper.CREATED_AT,EarthquakesDBOpenHelper.UPDATED_AT  };   
+		 String where = EarthquakesDBOpenHelper.MAGNITUDE + ">=?";
+         String groupBy = null;
+         String having = null;
+         String order = null;
+  
+         Cursor cursor = database.query(EarthquakesDBOpenHelper.DATABASE_TABLE,null, where,whereArgs, groupBy, having, EarthquakesDBOpenHelper.TIME+ " DESC");
+         while (cursor.moveToNext()) {
+     
+             int QUAKE_DATE_COLUMN_INDEX = cursor.getColumnIndexOrThrow(EarthquakesDBOpenHelper.TIME);
+             Long timeQuake = cursor.getLong(QUAKE_DATE_COLUMN_INDEX);  
+             
+             int QUAKE_DETAILS_COLUMN_INDEX = cursor.getColumnIndexOrThrow(EarthquakesDBOpenHelper.DETAIL);   
+             String quakeDetails= cursor.getString(QUAKE_DETAILS_COLUMN_INDEX);  
+             
+             int QUAKE_LOCATION_LAT_INDEX = cursor.getColumnIndexOrThrow(EarthquakesDBOpenHelper.LAT);         
+             float LatQuake = cursor.getFloat(QUAKE_LOCATION_LAT_INDEX);  
+             
+             int QUAKE_LOCATION_LONG_INDEX = cursor.getColumnIndexOrThrow(EarthquakesDBOpenHelper.LONG);             
+             float LongQuake= cursor.getFloat(QUAKE_LOCATION_LONG_INDEX);
+             
+             int QUAKE_MAGNITUDE_INDEX = cursor.getColumnIndexOrThrow(EarthquakesDBOpenHelper.MAGNITUDE);
+             double magnitudeQuake= cursor.getDouble(QUAKE_MAGNITUDE_INDEX);
+             
+             int QUAKE_DIRECCION_INDEX = cursor.getColumnIndexOrThrow(EarthquakesDBOpenHelper.URL);     
+             String directionQuake= cursor.getString(QUAKE_DIRECCION_INDEX);
+             
+             Quakes quake = new Quakes();
+             quake.setTime(timeQuake);
+             quake.setDetail(quakeDetails);
+             quake.setLat(LatQuake);
+             quake.setLongi(LongQuake);
+             quake.setMagnitude(magnitudeQuake);
+             quake.setUrl(directionQuake);
+             
+             list.add(quake);    
+            }
+     	Log.d("PROBANDO select", Long.toString(list.size()));
+           cursor.close();
+        return list;
 	}
 
 	public void update(int id, String columns[], String []values) {

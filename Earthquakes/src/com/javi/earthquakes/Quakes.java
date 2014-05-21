@@ -1,5 +1,7 @@
 package com.javi.earthquakes;
 
+import java.text.SimpleDateFormat;
+
 import android.R.integer;
 
 public class Quakes {
@@ -127,6 +129,10 @@ public class Quakes {
 		this.updated_at = updated_at;
 	}
 
-	
+	@Override
+	  public String toString() {
+	    return this.place + ": "+this.detail +" "+ magnitude + " ";
+	  }
+	 
 	
 }

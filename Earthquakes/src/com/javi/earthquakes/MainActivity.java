@@ -2,6 +2,7 @@ package com.javi.earthquakes;
 
 
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.json.JSONArray;
@@ -34,13 +35,12 @@ public class MainActivity extends Activity {
 		DatabaseErrorHandler errorHandler = null;
 		
 		
-//		EarthquakesDBOpenHelper bd= new EarthquakesDBOpenHelper(this, EarthquakesDBOpenHelper.DATABASE_NAME, null, EarthquakesDBOpenHelper.DATABASE_VERSION, errorHandler);
-//		bd.getWritableDatabase();
-//		
+
 		bd=new EarthQuakeBD(this);
 		bd.open();
-	//	bd.insert(1, "prueba", 2, "detalle prueba", 4.34, 2.23,1.2, "web", 33, 11);
-	this.getEarthQuakes();
+		this.getEarthQuakes();
+		Log.d("TAGAGGAG", "lklkl–kl–kl–kl–");
+		bd.getTerremotos(0);
 
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
@@ -100,11 +100,11 @@ public class MainActivity extends Activity {
 				for(int i=0; i< arrayFeatures.length(); i++) {
 					Quakes q = new Quakes();
 						JSONObject earthquake = arrayFeatures.getJSONObject(i);
-						Log.d("JSON  earthquake", earthquake.toString());
+					//	Log.d("JSON  earthquake", earthquake.toString());
 						JSONObject propiedades =  earthquake.getJSONObject("properties");
-						Log.d("JSON  propiedades", propiedades.toString());
+					//	Log.d("JSON  propiedades", propiedades.toString());
 						JSONArray coordinates =  earthquake.getJSONObject("geometry").getJSONArray("coordinates");
-						Log.d("JSON  coordinates", coordinates.toString());
+					//	Log.d("JSON  coordinates", coordinates.toString());
 						
 						// Crear Quake
 						q.setId_str(earthquake.getString("id"));
@@ -120,6 +120,7 @@ public class MainActivity extends Activity {
 						
 						bd.insert(q);
 					}
+
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
