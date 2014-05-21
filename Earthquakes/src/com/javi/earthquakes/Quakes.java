@@ -1,6 +1,8 @@
 package com.javi.earthquakes;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import android.R.integer;
 
@@ -18,8 +20,7 @@ public class Quakes {
 	private long created_at;
 	private long updated_at;
 	
-	public Quakes() {
-		
+	public Quakes() {	
 	}
 	
 	public Quakes(integer id, String id_str, String place, long time, String detail,
@@ -27,7 +28,6 @@ public class Quakes {
 			long created_at, long updated_at) {
 		
 		super();
-	//	this.id = id;
 		this.id_str=id_str;
 		this.place = place;
 		this.time = time;
@@ -131,7 +131,9 @@ public class Quakes {
 
 	@Override
 	  public String toString() {
-	    return place + ": "+detail +" "+ magnitude + " ";
+		SimpleDateFormat sdf = new SimpleDateFormat("HH.mm", Locale.ENGLISH);
+		String dateString = sdf.format(time);
+	    return place + " "+dateString+": "+detail +" "+ magnitude + " ";
 	  }
 	 
 	

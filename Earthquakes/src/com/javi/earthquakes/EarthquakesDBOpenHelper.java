@@ -40,22 +40,17 @@ public class EarthquakesDBOpenHelper extends SQLiteOpenHelper{
 			CursorFactory factory, int version,
 			DatabaseErrorHandler errorHandler) {
 		super(context, name, factory, version, errorHandler);
-		// TODO Auto-generated constructor stub
 	}
 
 	
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		// TODO Auto-generated method stub
 		db.execSQL(DATABASE_CREATE);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// TODO Auto-generated method stub
-		// Simplest case is to drop the old table and create a new one.
 		  db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
-		  // Create a new one.
 		  onCreate(db);
 		
 	}

@@ -1,8 +1,10 @@
 package com.javi.earthquakes;
 
 import java.util.ArrayList;
+
 import android.app.ListFragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +19,21 @@ public class FragmentList extends ListFragment{
 		adaptador= new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, listado);
 		setListAdapter(adaptador);
 		return super.onCreateView(inflater, container, savedInstanceState);
-		
 	}
 	
 	public void addItem(String texto){
 		listado.add(0,texto);
 		adaptador.notifyDataSetChanged();
+	}
+	
+	
+	public void crearListaActualizadaTerremotos(EarthQuakeBD bd){
+		ArrayList<Quakes> list= new ArrayList<Quakes>();
+		list=bd.getTerremotos(0);
+		for( int i = 0 ; i < list.size() ; i++ ){
+			 this.addItem(list.get(i).toString());			  
+			  Log.d("LISTFRAGMENT",list.get(i).toString());
+			}		
 	}
 	
 	@Override

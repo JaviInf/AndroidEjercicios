@@ -21,7 +21,6 @@ public  abstract class MiJSON {
 		String myFeed = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson";
 		try {
 			URL url = new URL(myFeed);
-
 			// Create a new HTTP URL connection
 			URLConnection connection = url.openConnection();
 			HttpURLConnection httpConnection = (HttpURLConnection) connection;

@@ -20,17 +20,17 @@ public class EarthQuakeBD {
 		earthQuakesBDOpenHelper = new EarthquakesDBOpenHelper(context,
 				EarthquakesDBOpenHelper.DATABASE_NAME, null,
 				EarthquakesDBOpenHelper.DATABASE_VERSION, errorHandler);
-			Log.d("EARTHQUAKEBD","CREACION INSTANCIA EarthQuakeDBOpenHelper");
+		//	Log.d("EARTHQUAKEBD","CREACION INSTANCIA EarthQuakeDBOpenHelper");
 	}
 
 	public void open() {
 		database = earthQuakesBDOpenHelper.getWritableDatabase();
-		Log.d("EARTHQUAKEBD","OPEN de la BD");
+		//Log.d("EARTHQUAKEBD","OPEN de la BD");
 	}
 
 	public void close() {
 		database.close();
-		Log.d("EARTHQUAKEBD","CLOSE de la BD");
+	//	Log.d("EARTHQUAKEBD","CLOSE de la BD");
 	}
 
 	public void insert(int id, String idstr, String place, Integer time, String detail,
@@ -57,7 +57,6 @@ public class EarthQuakeBD {
 	public void insert(Quakes quake) {
 
 		ContentValues nuevosValores = new ContentValues();
-		//nuevosValores.put(EarthquakesDBOpenHelper.ID, quake.getId());
 		nuevosValores.put(EarthquakesDBOpenHelper.ID_STR, quake.getId_str());
 		nuevosValores.put(EarthquakesDBOpenHelper.PLACE, quake.getPlace());
 		nuevosValores.put(EarthquakesDBOpenHelper.TIME, quake.getTime());
@@ -77,12 +76,9 @@ public class EarthQuakeBD {
 	
 	
 	public void delete(String where, String[] whereArgs) {
-		// Specify a where clause that determines which row(s) to delete.
-		// Specify where arguments as necessary.
-		// Delete the rows that match the where clause.
 		database.delete(EarthquakesDBOpenHelper.DATABASE_TABLE, where,
 				whereArgs);
-		Log.d("EARTHQUAKEBD", "DELETE en la BD de la tupla : "+where+" ="+whereArgs);
+		//Log.d("EARTHQUAKEBD", "DELETE en la BD de la tupla : "+where+" ="+whereArgs);
 	}
 	
 	public Cursor queryTerremotos(String[] columns, String groupBy, String[] whereArgs, String order, String having, String where, String[] result_columns){
@@ -93,14 +89,10 @@ public class EarthQuakeBD {
 	public ArrayList<Quakes> getTerremotos(double magnitude){
 		ArrayList<Quakes> list= new ArrayList<Quakes>();
 		String whereArgs[]={String.valueOf(magnitude)};
-		 String[] result_columns = new String[] {EarthquakesDBOpenHelper.ID, EarthquakesDBOpenHelper.ID_STR,EarthquakesDBOpenHelper.PLACE,
-				 EarthquakesDBOpenHelper.TIME,EarthquakesDBOpenHelper.DETAIL,EarthquakesDBOpenHelper.MAGNITUDE,EarthquakesDBOpenHelper.LAT, 
-				 EarthquakesDBOpenHelper.LONG, EarthquakesDBOpenHelper.URL,EarthquakesDBOpenHelper.CREATED_AT,EarthquakesDBOpenHelper.UPDATED_AT  };   
-		 String where = EarthquakesDBOpenHelper.MAGNITUDE + ">=?";
-         String groupBy = null;
-         String having = null;
-         String order = null;
-  
+		String where = EarthquakesDBOpenHelper.MAGNITUDE + ">=?";
+        String groupBy = null;
+        String having = null;
+
          Cursor cursor = database.query(EarthquakesDBOpenHelper.DATABASE_TABLE,null, where,whereArgs, groupBy, having, EarthquakesDBOpenHelper.TIME+ " DESC");
          while (cursor.moveToNext()) {
      
@@ -141,10 +133,7 @@ public class EarthQuakeBD {
 	}
 
 	public void update(int id, String columns[], String []values) {
-		// Create the updated row Content Values.
 		ContentValues valoresActualizados = new ContentValues();
-		// Specify a where clause the defines which rows should be // updated.
-		// Specify where arguments as necessary.
 		String where = EarthquakesDBOpenHelper.ID + "=?";
 		String whereArgs[]={String.valueOf(id)};
 		
@@ -152,7 +141,6 @@ public class EarthQuakeBD {
 			valoresActualizados.put(columns[i], values[i]);
 		}
 		
-		// Update the row with the specified index with the new values.
 		database.update(EarthquakesDBOpenHelper.DATABASE_TABLE,
 				valoresActualizados, where, whereArgs);
 
