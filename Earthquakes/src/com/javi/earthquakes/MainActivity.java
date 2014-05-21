@@ -1,24 +1,17 @@
 package com.javi.earthquakes;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
+
+
+import java.util.Date;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Intent;
 import android.database.DatabaseErrorHandler;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,11 +19,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
+
 
 public class MainActivity extends Activity {
 	
 	private static final int SHOW_PREFERENCES = 0;
+	EarthQuakeBD bd;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +37,10 @@ public class MainActivity extends Activity {
 //		EarthquakesDBOpenHelper bd= new EarthquakesDBOpenHelper(this, EarthquakesDBOpenHelper.DATABASE_NAME, null, EarthquakesDBOpenHelper.DATABASE_VERSION, errorHandler);
 //		bd.getWritableDatabase();
 //		
-		EarthQuakeBD bd=new EarthQuakeBD(this);
+		bd=new EarthQuakeBD(this);
 		bd.open();
-		bd.insert(1, "prueba", 2, "detalle prueba", 4.34, 2.23,1.2, "web", 33, 11);
-		
-		//JSONObject json =  ResourceParser.getJSONObject("http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson");
+	//	bd.insert(1, "prueba", 2, "detalle prueba", 4.34, 2.23,1.2, "web", 33, 11);
+	this.getEarthQuakes();
 
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
@@ -99,14 +92,33 @@ public class MainActivity extends Activity {
 
 			@Override
 			public void run() {
-				JSONObject json =  MiJSON.realizarConsulta("http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson");
+				Log.d("JSON", "Json en ejecucion");
+				JSONObject json=MiJSON.realizarConsulta();
+				Log.d("JSON", json.toString());
 				try {
-					JSONArray arrayFeatures = json.getJSONArray("features");
-					for(int i=0; i< arrayFeatures.length(); i++) {
-						JSONObject eq = arrayFeatures.getJSONObject(i);
-						JSONObject props =  eq.getJSONObject("properties");
-						JSONArray coordinates =  eq.getJSONObject("geometry").getJSONArray("coordinates");
+				JSONArray arrayFeatures = json.getJSONArray("features");
+				for(int i=0; i< arrayFeatures.length(); i++) {
+					Quakes q = new Quakes();
+						JSONObject earthquake = arrayFeatures.getJSONObject(i);
+						Log.d("JSON  earthquake", earthquake.toString());
+						JSONObject propiedades =  earthquake.getJSONObject("properties");
+						Log.d("JSON  propiedades", propiedades.toString());
+						JSONArray coordinates =  earthquake.getJSONObject("geometry").getJSONArray("coordinates");
+						Log.d("JSON  coordinates", coordinates.toString());
 						
+						// Crear Quake
+						q.setId_str(earthquake.getString("id"));
+						q.setPlace(propiedades.getString("place"));
+						q.setTime(propiedades.getLong("time"));
+						q.setDetail(propiedades.getString("detail"));
+						q.setMagnitude(propiedades.getDouble("mag"));
+						q.setLat(coordinates.getDouble(1));
+						q.setLongi(coordinates.getDouble(0));
+						q.setUrl(propiedades.getString("url"));
+						q.setCreated_at(Long.valueOf((new Date().getTime())));
+						q.setUpdated_at(Long.valueOf((new Date().getTime())));
+						
+						bd.insert(q);
 					}
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block

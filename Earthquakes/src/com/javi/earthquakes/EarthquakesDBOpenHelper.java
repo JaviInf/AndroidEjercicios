@@ -13,6 +13,7 @@ public class EarthquakesDBOpenHelper extends SQLiteOpenHelper{
 	public static final int DATABASE_VERSION = 1;
 	
 	public static final String ID = "_id";
+	public static final String ID_STR = "id_str";
 	public static final String PLACE = "place";
 	public static final String TIME = "time";
 	public static final String DETAIL = "detail";
@@ -23,7 +24,8 @@ public class EarthquakesDBOpenHelper extends SQLiteOpenHelper{
 	public static final String CREATED_AT = "created_at";
 	public static final String UPDATED_AT = "updated_at";
 	
-	private static final String DATABASE_CREATE = "CREATE TABLE IF NOT EXISTS "+DATABASE_TABLE+"("+ID+" PRIMARY KEY,"+
+	private static final String DATABASE_CREATE = "CREATE TABLE IF NOT EXISTS "+DATABASE_TABLE+"("+ID+"  INTEGER PRIMARY KEY AUTOINCREMENT,"+
+																								ID_STR + " TEXT UNIQUE,"+
 																								PLACE+" TEXT,"+
 																								TIME+" INTEGER,"+
 																								DETAIL+" TEXT,"+

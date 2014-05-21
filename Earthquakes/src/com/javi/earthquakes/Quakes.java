@@ -5,22 +5,28 @@ import android.R.integer;
 public class Quakes {
 	
 	private integer id;
+	private String id_str;
 	private String place;
-	private integer time;
+	private long time;
 	private String detail;
-	private Float magnitude;
-	private Float lat;
-	private Float longi;
+	private double magnitude;
+	private double lat;
+	private double longi;
 	private String url;
-	private integer created_at;
-	private integer updated_at;
+	private long created_at;
+	private long updated_at;
 	
-	public Quakes(integer id, String place, integer time, String detail,
-			Float magnitude, Float lat, Float longi, String url,
-			integer created_at, integer updated_at) {
+	public Quakes() {
+		
+	}
+	
+	public Quakes(integer id, String id_str, String place, long time, String detail,
+			double magnitude, double lat, double longi, String url,
+			long created_at, long updated_at) {
 		
 		super();
-		this.id = id;
+	//	this.id = id;
+		this.id_str=id_str;
 		this.place = place;
 		this.time = time;
 		this.detail = detail;
@@ -29,6 +35,95 @@ public class Quakes {
 		this.longi = longi;
 		this.url = url;
 		this.created_at = created_at;
+		this.updated_at = updated_at;
+	}
+
+	public integer getId() {
+		return id;
+	}
+
+	public void setId(integer id) {
+		this.id = id;
+	}
+	
+	public String getId_str() {
+		return id_str;
+	}
+
+	public void setId_str(String id_str) {
+		this.id_str = id_str;
+	}
+	
+
+	public String getPlace() {
+		return place;
+	}
+
+	public void setPlace(String place) {
+		this.place = place;
+	}
+
+	public long getTime() {
+		return time;
+	}
+
+	public void setTime(long l) {
+		this.time = l;
+	}
+
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
+
+	public double getMagnitude() {
+		return magnitude;
+	}
+
+	public void setMagnitude(double d) {
+		this.magnitude = d;
+	}
+
+	public double getLat() {
+		return lat;
+	}
+
+	public void setLat(double lat) {
+		this.lat = lat;
+	}
+
+	public double getLongi() {
+		return longi;
+	}
+
+	public void setLongi(double longi) {
+		this.longi = longi;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public long getCreated_at() {
+		return created_at;
+	}
+
+	public void setCreated_at(Long long1) {
+		this.created_at = long1;
+	}
+
+	public long getUpdated_at() {
+		return updated_at;
+	}
+
+	public void setUpdated_at(long updated_at) {
 		this.updated_at = updated_at;
 	}
 
