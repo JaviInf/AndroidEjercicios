@@ -1,11 +1,12 @@
 package com.javi.earthquakes;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.ListIterator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -27,29 +28,43 @@ public class MainActivity extends Activity {
 	private static final int SHOW_PREFERENCES = 0;
 	EarthQuakeBD bd;
 	
-	FragmentList fragmentList;
+	private FragmentList fragmentList;
 	 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-	
+		
+		 android.app.FragmentManager fragmentManager = getFragmentManager();
+         fragmentList= (FragmentList)fragmentManager.findFragmentById(R.id.containerList);
+       //  fragmentList.addItem("lkllklklk");
+
 		DatabaseErrorHandler errorHandler = null;
 
 		bd=new EarthQuakeBD(this);
 		bd.open();
 		this.getEarthQuakes();
-		bd.getTerremotos(0);
-
+		//bd.getTerremotos(0);
+		this.crearListaActualizadaTerremotos(bd);
 		if (savedInstanceState == null) {
-			FragmentManager fragmentManager = getFragmentManager();
-			FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-			fragmentTransaction.add(R.id.container,new FragmentList(), "list");
-			fragmentTransaction.commit();
+//			FragmentManager fragmentManager = getFragmentManager();
+//			FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//			fragmentTransaction.add(R.id.containerList,new FragmentList(), "list");
+//			fragmentTransaction.commit();
+//			fragmentList=((FragmentList)getFragmentManager().findFragmentByTag("list"));
+//			fragmentList.addItem("lkklklkllkl");
 		}
-	fragmentList=((FragmentList)getFragmentManager().findFragmentByTag("list"));
+	
 	}
 
+	public void crearListaActualizadaTerremotos(EarthQuakeBD bd){
+		ArrayList<Quakes> list= new ArrayList<Quakes>();
+		list=bd.getTerremotos(0);
+		for( int i = 0 ; i < list.size() ; i++ ){
+			 fragmentList.addItem(list.get(i).toString());			  
+			  Log.d("LISTFRAGMENT",list.get(i).toString());
+			}		
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 

@@ -17,7 +17,7 @@ import android.util.Log;
 public  abstract class MiJSON {
 	
 	public static JSONObject realizarConsulta() {
-		Log.d("TAG", "se esta realizando la consulta");
+//		Log.d("TAG", "se esta realizando la consulta");
 		String myFeed = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson";
 		try {
 			URL url = new URL(myFeed);
@@ -27,7 +27,7 @@ public  abstract class MiJSON {
 			HttpURLConnection httpConnection = (HttpURLConnection) connection;
 			int responseCode = httpConnection.getResponseCode();
 			if (responseCode == HttpURLConnection.HTTP_OK) {
-				Log.d("TAG", "CONSULTA SATISFACTORIA");
+//				Log.d("TAG", "CONSULTA SATISFACTORIA");
 				InputStream in = httpConnection.getInputStream();
 				return procesarConsulta(in);
 
@@ -42,7 +42,7 @@ public  abstract class MiJSON {
 	}
 
 	private static JSONObject procesarConsulta(InputStream in) {
-		Log.d("TAG", "empieza procesamiento de respuesta");
+//		Log.d("TAG", "empieza procesamiento de respuesta");
 		BufferedReader br = new BufferedReader(new InputStreamReader(in));
 		StringBuilder sb = new StringBuilder();
 		String line = null;

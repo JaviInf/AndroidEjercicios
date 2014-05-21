@@ -38,7 +38,6 @@ public class EarthQuakeBD {
 			Integer created_at, Integer updated_at) {
 
 		ContentValues nuevosValores = new ContentValues();
-		//nuevosValores.put(EarthquakesDBOpenHelper.ID, id);
 		nuevosValores.put(EarthquakesDBOpenHelper.ID_STR, idstr);
 		nuevosValores.put(EarthquakesDBOpenHelper.PLACE, place);
 		nuevosValores.put(EarthquakesDBOpenHelper.TIME, time);
@@ -108,6 +107,9 @@ public class EarthQuakeBD {
              int QUAKE_DATE_COLUMN_INDEX = cursor.getColumnIndexOrThrow(EarthquakesDBOpenHelper.TIME);
              Long timeQuake = cursor.getLong(QUAKE_DATE_COLUMN_INDEX);  
              
+             int QUAKE_PLACE_COLUMN_INDEX = cursor.getColumnIndexOrThrow(EarthquakesDBOpenHelper.PLACE);
+             String placeQuake = cursor.getString(QUAKE_PLACE_COLUMN_INDEX);
+             
              int QUAKE_DETAILS_COLUMN_INDEX = cursor.getColumnIndexOrThrow(EarthquakesDBOpenHelper.DETAIL);   
              String quakeDetails= cursor.getString(QUAKE_DETAILS_COLUMN_INDEX);  
              
@@ -125,6 +127,7 @@ public class EarthQuakeBD {
              
              Quakes quake = new Quakes();
              quake.setTime(timeQuake);
+             quake.setPlace(placeQuake);
              quake.setDetail(quakeDetails);
              quake.setLat(LatQuake);
              quake.setLongi(LongQuake);

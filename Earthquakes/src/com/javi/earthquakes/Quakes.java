@@ -131,7 +131,7 @@ public class Quakes {
 
 	@Override
 	  public String toString() {
-	    return this.place + ": "+this.detail +" "+ magnitude + " ";
+	    return place + ": "+detail +" "+ magnitude + " ";
 	  }
 	 
 	
