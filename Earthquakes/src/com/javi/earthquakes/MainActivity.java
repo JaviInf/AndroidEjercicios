@@ -1,16 +1,16 @@
 package com.javi.earthquakes;
 
-
-
-import java.util.ArrayList;
 import java.util.Date;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.database.DatabaseErrorHandler;
 import android.os.Bundle;
@@ -27,25 +27,27 @@ public class MainActivity extends Activity {
 	private static final int SHOW_PREFERENCES = 0;
 	EarthQuakeBD bd;
 	
+	FragmentList fragmentList;
+	 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+	
 		DatabaseErrorHandler errorHandler = null;
-		
-		
 
 		bd=new EarthQuakeBD(this);
 		bd.open();
 		this.getEarthQuakes();
-		Log.d("TAGAGGAG", "lklkl–kl–kl–kl–");
 		bd.getTerremotos(0);
 
 		if (savedInstanceState == null) {
-			getFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
+			FragmentManager fragmentManager = getFragmentManager();
+			FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+			fragmentTransaction.add(R.id.container,new FragmentList(), "list");
+			fragmentTransaction.commit();
 		}
+	fragmentList=((FragmentList)getFragmentManager().findFragmentByTag("list"));
 	}
 
 	@Override

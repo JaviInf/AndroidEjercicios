@@ -88,7 +88,6 @@ public class EarthQuakeBD {
 	
 	public Cursor queryTerremotos(String[] columns, String groupBy, String[] whereArgs, String order, String having, String where, String[] result_columns){
 		Cursor cursor=database.query(EarthquakesDBOpenHelper.DATABASE_TABLE,result_columns, where,whereArgs, groupBy, having, order);
-		Log.d("EARTHQUAKEBD", "QUERY de terremotos");
 		return cursor;
 	}
 	
@@ -134,7 +133,6 @@ public class EarthQuakeBD {
              
              list.add(quake);    
             }
-     	Log.d("PROBANDO select", Long.toString(list.size()));
            cursor.close();
         return list;
 	}
