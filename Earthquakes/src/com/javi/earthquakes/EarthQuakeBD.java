@@ -56,7 +56,7 @@ public class EarthQuakeBD {
 		Log.d("EARTHQUAKEBD",
 				"INSERT en la BD con estado: " + String.valueOf(ok));
 	}
-	public void insert(Quakes quake) {
+	public long insert(Quakes quake) {
 
 		ContentValues nuevosValores = new ContentValues();
 		nuevosValores.put(EarthquakesDBOpenHelper.ID_STR, quake.getId_str());
@@ -74,6 +74,7 @@ public class EarthQuakeBD {
 				nuevosValores);
 		Log.d("EARTHQUAKEBD",
 				"INSERT en la BD con estado: " + String.valueOf(ok));
+		return ok;
 	}
 	
 	

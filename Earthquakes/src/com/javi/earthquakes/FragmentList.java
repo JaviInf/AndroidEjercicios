@@ -42,6 +42,7 @@ public class FragmentList extends ListFragment implements InterfaceListFragmentA
 	}
 	
 	public void actualizarListadoTerremotos(Quakes q){
+//		bd.insert(q);
 		Log.d("LISTFRAGMENT", "Lista ha sido actualizado a–adiendo : "+q.getPlace());
 		listado.add(0,q);
 		adaptador.notifyDataSetChanged();

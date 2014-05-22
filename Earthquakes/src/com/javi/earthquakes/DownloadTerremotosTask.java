@@ -53,10 +53,9 @@ public class DownloadTerremotosTask extends AsyncTask<URL, ArrayList<Quakes>, Ar
 				q.setUrl(propiedades.getString("url"));
 				q.setCreated_at(Long.valueOf((new Date().getTime())));
 				q.setUpdated_at(Long.valueOf((new Date().getTime())));
-				
-				//bd.insert(q);
+				if(bd.insert(q)!=-1)listadoNuevo.add(q);
 				//bd.close();
-				listadoNuevo.add(q);
+				
 			}
 			return listadoNuevo;
 		
@@ -72,7 +71,7 @@ public class DownloadTerremotosTask extends AsyncTask<URL, ArrayList<Quakes>, Ar
 	
 		for( int i = 0 ; i < listadoNuevo.size() ; i++ ){
 			Log.d("ASYNTASK y BD    antessss",""+ bd.getTerremotos(0).size());
-			bd.insert(listadoNuevo.get(i));
+		//	bd.insert(listadoNuevo.get(i));
 			Log.d("ASYNTASK y BD    despues",""+ bd.getTerremotos(0).size());
 			Log.d("ASYNTASK", "A„ADIDO nuevos terremotos a LA BD");
 			listFragment.actualizarListadoTerremotos(listadoNuevo.get(i));
