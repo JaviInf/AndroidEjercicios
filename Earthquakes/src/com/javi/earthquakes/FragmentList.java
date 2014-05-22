@@ -11,43 +11,52 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 public class FragmentList extends ListFragment{
-	private ArrayList<String> listado;
-	private ArrayAdapter<String> adaptador;
+	private ArrayList<Quakes> listado;
+	private ArrayAdapter<Quakes> adaptador;
+	
+	EarthQuakeBD bd;
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-		listado=new ArrayList<String>();
-		adaptador= new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, listado);
+		listado=new ArrayList<Quakes>();
+		adaptador= new ArrayAdapter<Quakes>(inflater.getContext(), android.R.layout.simple_list_item_1, listado);
 		setListAdapter(adaptador);
+		
 		return super.onCreateView(inflater, container, savedInstanceState);
 	}
 	
-	public void addItem(String texto){
-		listado.add(0,texto);
-		adaptador.notifyDataSetChanged();
-	}
+//	public void addItem(String texto){
+//		listado.add(0,texto);
+//		adaptador.notifyDataSetChanged();
+//	}
 	
 	
-	public void crearListaActualizadaTerremotos(EarthQuakeBD bd){
-		ArrayList<Quakes> list= new ArrayList<Quakes>();
-		list=bd.getTerremotos(0);
-		for( int i = 0 ; i < list.size() ; i++ ){
-			 this.addItem(list.get(i).toString());			  
-			  Log.d("LISTFRAGMENT",list.get(i).toString());
-			}		
-	}
+//	public void crearListaActualizadaTerremotos(EarthQuakeBD bd){
+//		ArrayList<Quakes> list= new ArrayList<Quakes>();
+//		list=bd.getTerremotos(0);
+//		for( int i = 0 ; i < list.size() ; i++ ){
+//			 this.addItem(list.get(i).toString());			  
+//			  Log.d("LISTFRAGMENT",list.get(i).toString());
+//			}		
+//	}
 	
 	@Override
 	public void onActivityCreated(Bundle inState) {
         super.onActivityCreated(inState);
-        if (inState != null) {    		
-			listado.addAll(inState.getStringArrayList("listado"));
-			adaptador.notifyDataSetChanged();
-        }
+        
+        bd = new EarthQuakeBD(getActivity());
+        listado.addAll(bd.getTerremotos(0));
+        adaptador.notifyDataSetChanged();
+        
+        
+//        if (inState != null) {    		
+//			listado.addAll(inState.getStringArrayList("listado"));
+//			adaptador.notifyDataSetChanged();
+//        }
 	}
 
-	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		outState.putStringArrayList("listado", listado);
-		super.onSaveInstanceState(outState);
-	}
+//	@Override
+//	public void onSaveInstanceState(Bundle outState) {
+//		outState.putStringArrayList("listado", listado);
+//		super.onSaveInstanceState(outState);
+//	}
 }

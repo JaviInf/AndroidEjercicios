@@ -21,6 +21,8 @@ public class EarthQuakeBD {
 				EarthquakesDBOpenHelper.DATABASE_NAME, null,
 				EarthquakesDBOpenHelper.DATABASE_VERSION, errorHandler);
 		//	Log.d("EARTHQUAKEBD","CREACION INSTANCIA EarthQuakeDBOpenHelper");
+		
+		this.open();
 	}
 
 	public void open() {

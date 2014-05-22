@@ -1,34 +1,25 @@
 package com.javi.earthquakes;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.ListIterator;
 
+import java.util.Date;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.DatabaseErrorHandler;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+
 
 
 public class MainActivity extends Activity {
 	
 	private static final int SHOW_PREFERENCES = 0;
 	EarthQuakeBD bd;
-	private SharedPreferences prefs;
+
 
 	
 	private FragmentList fragmentList;
@@ -39,18 +30,19 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 
 		
-		 android.app.FragmentManager fragmentManager = getFragmentManager();
-         fragmentList= (FragmentList)fragmentManager.findFragmentById(R.id.containerList);
+		FragmentManager fragmentManager = getFragmentManager();
+		fragmentManager.beginTransaction().add(R.id.container, new FragmentList(), "list").commit();
+//         fragmentList= (FragmentList)fragmentManager.findFragmentById(R.id.containerList);
 
-		DatabaseErrorHandler errorHandler = null;
 
-		bd=new EarthQuakeBD(this);
-		bd.open();
-		this.getEarthQuakes();
-		fragmentList.crearListaActualizadaTerremotos(bd);
-		if (savedInstanceState == null) {
-
-		}
+//		bd=new EarthQuakeBD(this);
+//		bd.open();
+//		this.getEarthQuakes();
+//		fragmentList.crearListaActualizadaTerremotos(bd);
+//		
+//		if (savedInstanceState == null) {
+//
+//		}
 	
 	}
 
