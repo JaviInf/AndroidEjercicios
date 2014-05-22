@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
-public class FragmentList extends ListFragment{
+public class FragmentList extends ListFragment implements InterfaceListFragmentAsyntask{
 	private ArrayList<Quakes> listado;
 	private ArrayAdapter<Quakes> adaptador;
 	
@@ -24,21 +24,7 @@ public class FragmentList extends ListFragment{
 		
 		return super.onCreateView(inflater, container, savedInstanceState);
 	}
-	
-//	public void addItem(String texto){
-//		listado.add(0,texto);
-//		adaptador.notifyDataSetChanged();
-//	}
-	
-	
-//	public void crearListaActualizadaTerremotos(EarthQuakeBD bd){
-//		ArrayList<Quakes> list= new ArrayList<Quakes>();
-//		list=bd.getTerremotos(0);
-//		for( int i = 0 ; i < list.size() ; i++ ){
-//			 this.addItem(list.get(i).toString());			  
-//			  Log.d("LISTFRAGMENT",list.get(i).toString());
-//			}		
-//	}
+
 	
 	@Override
 	public void onActivityCreated(Bundle inState) {
@@ -47,13 +33,20 @@ public class FragmentList extends ListFragment{
         bd = new EarthQuakeBD(getActivity());
         listado.addAll(bd.getTerremotos(0));
         adaptador.notifyDataSetChanged();
-        
+        DownloadTerremotosTask download= new DownloadTerremotosTask(getActivity(), this);
+        download.execute();
         
         if (inState != null) {    		
 
         }
 	}
-
+	
+	public void actualizarListadoTerremotos(Quakes q){
+		Log.d("LISTFRAGMENT", "Lista ha sido actualizado a–adiendo : "+q.getPlace());
+		listado.add(0,q);
+		adaptador.notifyDataSetChanged();
+	
+	}
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 
