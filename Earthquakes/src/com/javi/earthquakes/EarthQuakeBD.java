@@ -95,7 +95,7 @@ public class EarthQuakeBD {
         String groupBy = null;
         String having = null;
 
-         Cursor cursor = database.query(EarthquakesDBOpenHelper.DATABASE_TABLE,null, where,whereArgs, groupBy, having, EarthquakesDBOpenHelper.TIME+ " DESC");
+         Cursor cursor = database.query(EarthquakesDBOpenHelper.DATABASE_TABLE,null, where,whereArgs, groupBy, having, EarthquakesDBOpenHelper.MAGNITUDE+ " DESC");
          while (cursor.moveToNext()) {
      
              int QUAKE_DATE_COLUMN_INDEX = cursor.getColumnIndexOrThrow(EarthquakesDBOpenHelper.TIME);

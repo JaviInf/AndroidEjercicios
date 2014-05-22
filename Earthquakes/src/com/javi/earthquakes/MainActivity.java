@@ -19,10 +19,6 @@ public class MainActivity extends Activity {
 	
 	private static final int SHOW_PREFERENCES = 0;
 	EarthQuakeBD bd;
-
-
-	
-	private FragmentList fragmentList;
 	 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +28,6 @@ public class MainActivity extends Activity {
 		
 		FragmentManager fragmentManager = getFragmentManager();
 		fragmentManager.beginTransaction().add(R.id.container, new FragmentList(), "list").commit();
-//         fragmentList= (FragmentList)fragmentManager.findFragmentById(R.id.containerList);
 
 
 //		bd=new EarthQuakeBD(this);

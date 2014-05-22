@@ -1,6 +1,7 @@
 package com.javi.earthquakes;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import android.app.ListFragment;
 import android.os.Bundle;
@@ -48,15 +49,13 @@ public class FragmentList extends ListFragment{
         adaptador.notifyDataSetChanged();
         
         
-//        if (inState != null) {    		
-//			listado.addAll(inState.getStringArrayList("listado"));
-//			adaptador.notifyDataSetChanged();
-//        }
+        if (inState != null) {    		
+
+        }
 	}
 
-//	@Override
-//	public void onSaveInstanceState(Bundle outState) {
-//		outState.putStringArrayList("listado", listado);
-//		super.onSaveInstanceState(outState);
-//	}
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+
+	}
 }
