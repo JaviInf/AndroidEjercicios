@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 public class DownloadTerremotosTask extends AsyncTask<URL, ArrayList<Quakes>, ArrayList<Quakes>> {
 	
@@ -73,9 +74,15 @@ public class DownloadTerremotosTask extends AsyncTask<URL, ArrayList<Quakes>, Ar
 			Log.d("ASYNTASK y BD    antessss",""+ bd.getTerremotos(0).size());
 		//	bd.insert(listadoNuevo.get(i));
 			Log.d("ASYNTASK y BD    despues",""+ bd.getTerremotos(0).size());
-			Log.d("ASYNTASK", "A„ADIDO nuevos terremotos a LA BD");
+			Log.d("ASYNTASK", "AÃ±ADIDO nuevos terremotos a LA BD");
 			listFragment.actualizarListadoTerremotos(listadoNuevo.get(i));
 			}
+	
+		CharSequence text = "Se acaba de actualizar la lista de terremotos (Asyntask)!";
+		int duration = Toast.LENGTH_SHORT;
+		 
+		Toast toast = Toast.makeText(contexto, text, duration);
+		toast.show();
 		Log.d("ASYNTASK", "PROCESO FINALIZADO");
 	}
 	

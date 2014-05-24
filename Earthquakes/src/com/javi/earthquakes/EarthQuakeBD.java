@@ -98,7 +98,13 @@ public class EarthQuakeBD {
 
          Cursor cursor = database.query(EarthquakesDBOpenHelper.DATABASE_TABLE,null, where,whereArgs, groupBy, having, EarthquakesDBOpenHelper.MAGNITUDE+ " DESC");
          while (cursor.moveToNext()) {
-     
+    
+        	 int QUAKE_ID_COLUMN_INDEX = cursor.getColumnIndexOrThrow(EarthquakesDBOpenHelper.ID);
+             Integer idQuake = cursor.getInt(QUAKE_ID_COLUMN_INDEX); 
+             
+             int QUAKE_ID_STR_COLUMN_INDEX = cursor.getColumnIndexOrThrow(EarthquakesDBOpenHelper.ID_STR);
+             String id_str_Quake = cursor.getString(QUAKE_ID_STR_COLUMN_INDEX);  
+             
              int QUAKE_DATE_COLUMN_INDEX = cursor.getColumnIndexOrThrow(EarthquakesDBOpenHelper.TIME);
              Long timeQuake = cursor.getLong(QUAKE_DATE_COLUMN_INDEX);  
              
@@ -121,6 +127,8 @@ public class EarthQuakeBD {
              String directionQuake= cursor.getString(QUAKE_DIRECCION_INDEX);
              
              Quakes quake = new Quakes();
+             quake.setId(idQuake);
+             quake.setId_str(id_str_Quake);
              quake.setTime(timeQuake);
              quake.setPlace(placeQuake);
              quake.setDetail(quakeDetails);
@@ -135,6 +143,61 @@ public class EarthQuakeBD {
         return list;
 	}
 
+	public Quakes getTerremoto(Integer id){
+		 Quakes quake = new Quakes();
+		String whereArgs[]={String.valueOf(id)};
+		String where = EarthquakesDBOpenHelper.ID + "=?";
+        String groupBy = null;
+        String having = null;
+        
+
+         Cursor cursor = database.query(EarthquakesDBOpenHelper.DATABASE_TABLE,null, where,whereArgs, groupBy, having, EarthquakesDBOpenHelper.MAGNITUDE+ " DESC");
+         while (cursor.moveToNext()) {
+    
+        	 int QUAKE_ID_COLUMN_INDEX = cursor.getColumnIndexOrThrow(EarthquakesDBOpenHelper.ID);
+             Integer idQuake = cursor.getInt(QUAKE_ID_COLUMN_INDEX); 
+             
+             int QUAKE_ID_STR_COLUMN_INDEX = cursor.getColumnIndexOrThrow(EarthquakesDBOpenHelper.ID_STR);
+             String id_str_Quake = cursor.getString(QUAKE_ID_STR_COLUMN_INDEX);  
+             
+             int QUAKE_DATE_COLUMN_INDEX = cursor.getColumnIndexOrThrow(EarthquakesDBOpenHelper.TIME);
+             Long timeQuake = cursor.getLong(QUAKE_DATE_COLUMN_INDEX);  
+             
+             int QUAKE_PLACE_COLUMN_INDEX = cursor.getColumnIndexOrThrow(EarthquakesDBOpenHelper.PLACE);
+             String placeQuake = cursor.getString(QUAKE_PLACE_COLUMN_INDEX);
+             
+             int QUAKE_DETAILS_COLUMN_INDEX = cursor.getColumnIndexOrThrow(EarthquakesDBOpenHelper.DETAIL);   
+             String quakeDetails= cursor.getString(QUAKE_DETAILS_COLUMN_INDEX);  
+             
+             int QUAKE_LOCATION_LAT_INDEX = cursor.getColumnIndexOrThrow(EarthquakesDBOpenHelper.LAT);         
+             float LatQuake = cursor.getFloat(QUAKE_LOCATION_LAT_INDEX);  
+             
+             int QUAKE_LOCATION_LONG_INDEX = cursor.getColumnIndexOrThrow(EarthquakesDBOpenHelper.LONG);             
+             float LongQuake= cursor.getFloat(QUAKE_LOCATION_LONG_INDEX);
+             
+             int QUAKE_MAGNITUDE_INDEX = cursor.getColumnIndexOrThrow(EarthquakesDBOpenHelper.MAGNITUDE);
+             double magnitudeQuake= cursor.getDouble(QUAKE_MAGNITUDE_INDEX);
+             
+             int QUAKE_DIRECCION_INDEX = cursor.getColumnIndexOrThrow(EarthquakesDBOpenHelper.URL);     
+             String directionQuake= cursor.getString(QUAKE_DIRECCION_INDEX);
+             
+            
+             quake.setId(idQuake);
+             quake.setId_str(id_str_Quake);
+             quake.setTime(timeQuake);
+             quake.setPlace(placeQuake);
+             quake.setDetail(quakeDetails);
+             quake.setLat(LatQuake);
+             quake.setLongi(LongQuake);
+             quake.setMagnitude(magnitudeQuake);
+             quake.setUrl(directionQuake);
+              
+            }
+           cursor.close();
+        return quake;
+	}
+
+	
 	public void update(int id, String columns[], String []values) {
 		ContentValues valoresActualizados = new ContentValues();
 		String where = EarthquakesDBOpenHelper.ID + "=?";

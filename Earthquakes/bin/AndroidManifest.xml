@@ -7,7 +7,9 @@
     <uses-sdk
         android:minSdkVersion="16"
         android:targetSdkVersion="17" />
-	<uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -24,7 +26,12 @@
         </activity>
         <activity
             android:name="com.javi.earthquakes.PreferenciasActivity"
-            android:label="@string/title_activity_preferencias" >
+            android:label="@string/title_activity_preferencias"
+           >
+        </activity>
+        <activity
+            android:name="com.javi.earthquakes.DetailActivity"
+            android:label="@string/title_activity_detail" >
         </activity>
     </application>
 

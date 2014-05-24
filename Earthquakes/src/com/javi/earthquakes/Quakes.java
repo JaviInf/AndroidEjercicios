@@ -8,7 +8,7 @@ import android.R.integer;
 
 public class Quakes {
 	
-	private integer id;
+	private int id;
 	private String id_str;
 	private String place;
 	private long time;
@@ -23,7 +23,7 @@ public class Quakes {
 	public Quakes() {	
 	}
 	
-	public Quakes(integer id, String id_str, String place, long time, String detail,
+	public Quakes(int id, String id_str, String place, long time, String detail,
 			double magnitude, double lat, double longi, String url,
 			long created_at, long updated_at) {
 		
@@ -40,11 +40,11 @@ public class Quakes {
 		this.updated_at = updated_at;
 	}
 
-	public integer getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	
