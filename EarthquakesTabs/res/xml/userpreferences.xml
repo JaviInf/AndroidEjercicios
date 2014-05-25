@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="Configuracion de Eartquakes"
+    android:summary="System preference imported using an intent">
+    <PreferenceCategory android:title="Preferencias de actualizacion">
+         <CheckBoxPreference
+          	android:title="Autorefresh"
+          	android:defaultValue="true"
+         	android:summary="Seleccionalo para activar actualizaciones automaticas"
+          	android:key="checkboxPref" />
+
+         <ListPreference 
+             android:dialogTitle="Frecuencia de autorefresco"
+    		android:key="intervalo_refresco"
+    		android:title="Intervalo de actualizacion"
+    		android:defaultValue="15"
+    		android:entries="@array/tiposInternet"
+   			android:entryValues="@array/numInternet"
+   			android:summary="Frecuencia con la que se actualizara la lista de terremotos"/>
+    </PreferenceCategory>
+         
+    <PreferenceCategory android:title="Filtros de terremotos">
+         <ListPreference 
+              android:dialogTitle="Magnitud de los terremotos"
+    		android:key="magnitud_terremotos"
+    		android:defaultValue="5"
+    		android:title="Magnitud minima de los terremotos"
+    		android:entries="@array/magnitudes"
+   			android:entryValues="@array/valorMagnitudes"
+   				android:summary="Selecciona la magnitud minima de los terremotos a mostrar en al lista"/>
+	</PreferenceCategory>
+	
+    <PreferenceCategory android:title="Red">
+         <Preference android:title="Preferencias de Red" android:summary="Mostrar la configuración para permitir la configuración de la conexión Wi-Fi">
+        <intent 
+            android:action="android.settings.WIRELESS_SETTINGS"/>
+    </Preference>
+    </PreferenceCategory>
+	
+	
+</PreferenceScreen>
