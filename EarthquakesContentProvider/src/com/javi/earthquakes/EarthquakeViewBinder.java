@@ -25,9 +25,15 @@ public class EarthquakeViewBinder implements android.support.v4.widget.SimpleCur
          
          return true;
        }
-       return false;
+   	else if (view.getId()==R.id.mag){
+   	    int mag = cursor.getColumnIndex(MyContentProvider.MAGNITUDE);
+   	    double magnitudValor= cursor.getDouble(mag);
+   	    ((TextView) view).setText(Double.toString(magnitudValor));
+   	    
+	   return true;
    }
+return false;
 
-
+}
 
 }
