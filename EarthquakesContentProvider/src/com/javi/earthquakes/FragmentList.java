@@ -135,7 +135,7 @@ public class FragmentList extends ListFragment implements InterfaceListFragmentA
         super.onListItemClick(l, v, position, id);
         
         Intent detalle = new Intent(getActivity(), DetailActivity.class);
-        detalle.putExtra(ID,position);
+        detalle.putExtra(ID,id);
         startActivity(detalle);
     }
 
