@@ -1,9 +1,7 @@
 package com.javi.earthquakes;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
-import android.R.integer;
 import android.app.ListFragment;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -16,9 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class FragmentList extends ListFragment implements InterfaceListFragmentAsyntask{
 //	private ArrayList<Quakes> listado;
@@ -49,12 +45,13 @@ public class FragmentList extends ListFragment implements InterfaceListFragmentA
 //		setListAdapter(adaptador);
 		prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 		lastMagnitude =Double.parseDouble(prefs.getString("magnitud_terremotos", "5"));
-		
+		//  adaptadorCursor.setViewBinder(new EarthquakeViewBinder());
 		ContentResolver cr =getActivity().getContentResolver();
 		cursor = cr.query(MyContentProvider.CONTENT_URI, result_columns,
                 null, null, null);
 //		adaptadorCursor=new SimpleCursorAdapter(getActivity(), R.layout.list_row_item, cursor, result_columns,to_columns);
 		adaptadorCursor= new SimpleCursorAdapter(getActivity(), R.layout.list_row_item, cursor, result_columns, to_columns, 0);
+		adaptadorCursor.setViewBinder(new EarthquakeViewBinder());
 		setListAdapter(adaptadorCursor);
 		return super.onCreateView(inflater, container, savedInstanceState);
 
@@ -133,7 +130,6 @@ public class FragmentList extends ListFragment implements InterfaceListFragmentA
 	@Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        
         Intent detalle = new Intent(getActivity(), DetailActivity.class);
         detalle.putExtra(ID,id);
         startActivity(detalle);

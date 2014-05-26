@@ -15,6 +15,7 @@
         android:background="@drawable/rounded_edittext"
         android:padding="5dp"
         android:text="Mag"
+        android:textColor="@android:color/black"
         android:textSize="@dimen/list_mag_size"
         android:textStyle="bold" />
 
