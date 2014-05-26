@@ -5,10 +5,13 @@ import java.util.Collection;
 
 import android.R.integer;
 import android.app.ListFragment;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,23 +21,43 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 public class FragmentList extends ListFragment implements InterfaceListFragmentAsyntask{
-	private ArrayList<Quakes> listado;
-	private EarthQuakeArrayAdapter adaptador;
+//	private ArrayList<Quakes> listado;
+	private SimpleCursorAdapter adaptadorCursor;
+	private ArrayList<Quakes> listadoCursor;
+//	private EarthQuakeArrayAdapter adaptador;
 	private double lastMagnitude=0;
 	public final static String ID = "_id";
-	
+	private Cursor cursor;
 	private SharedPreferences prefs;
+	
+	private String[] result_columns = new String[] {
+		    MyContentProvider.MAGNITUDE,
+		    MyContentProvider.PLACE,
+		    MyContentProvider.TIME,
+		    MyContentProvider.ID};
+	private int[] to_columns = new int[] {
+			R.id.magnitud,
+			R.id.places,
+			R.id.times };
+	
+	private EarthQuakeBD bd;
 
 	
-	EarthQuakeBD bd;
-	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-		listado=new ArrayList<Quakes>();
-		adaptador= new EarthQuakeArrayAdapter(getActivity(), listado);
-		setListAdapter(adaptador);
+	//	listado=new ArrayList<Quakes>();
+//		adaptador= new EarthQuakeArrayAdapter(getActivity(), listado);
+//		setListAdapter(adaptador);
 		prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 		lastMagnitude =Double.parseDouble(prefs.getString("magnitud_terremotos", "5"));
+		
+		ContentResolver cr =getActivity().getContentResolver();
+		cursor = cr.query(MyContentProvider.CONTENT_URI, result_columns,
+                null, null, null);
+//		adaptadorCursor=new SimpleCursorAdapter(getActivity(), R.layout.list_row_item, cursor, result_columns,to_columns);
+		adaptadorCursor= new SimpleCursorAdapter(getActivity(), R.layout.list_row_item, cursor, result_columns, to_columns, 0);
+		setListAdapter(adaptadorCursor);
 		return super.onCreateView(inflater, container, savedInstanceState);
+
 	}
 
 	
@@ -47,11 +70,12 @@ public class FragmentList extends ListFragment implements InterfaceListFragmentA
    //     setListAdapter(adaptador);
        
 
-        queryTerremotosBDAsynTask();
+       //////// queryTerremotosBDAsynTask();
+        
       //  adaptador.notifyDataSetChanged();
        // DownloadTerremotosTask download= new DownloadTerremotosTask(getActivity(), this);
        // download.execute();
-        queryTerremotosJSONAsynTask();
+    ////////    queryTerremotosJSONAsynTask();
         
         if (inState != null) {    		
 
@@ -60,23 +84,23 @@ public class FragmentList extends ListFragment implements InterfaceListFragmentA
 	
 	public void actualizarListadoTerremotos(Quakes q){
 		Log.d("LISTFRAGMENT", "Lista ha sido actualizado añadiendo : "+q.getPlace());
-		listado.add(0,q);
-		adaptador.notifyDataSetChanged();
+//		listado.add(0,q);
+//		adaptador.notifyDataSetChanged();
 	}
 	
 	public void resetearActualizarLista(ArrayList<Quakes> result) {
-		listado.clear();
-		listado.addAll(result);
-		adaptador.notifyDataSetChanged();	
+//		listado.clear();
+//		listado.addAll(result);
+//		adaptador.notifyDataSetChanged();	
 	}
 	
 	public void actualizarListadoTerremotos(ArrayList<Quakes> lista){
-		for(Quakes q : lista) {
-			if(q.getMagnitude()>=Double.parseDouble(prefs.getString("magnitud_terremotos", "5")))
-
-					listado.add(0, q);		
-				}		
-				adaptador.notifyDataSetChanged();
+//		for(Quakes q : lista) {
+//			if(q.getMagnitude()>=Double.parseDouble(prefs.getString("magnitud_terremotos", "5")))
+//
+//					listado.add(0, q);		
+//				}		
+//				adaptador.notifyDataSetChanged();
 	}
 	
 	public void queryTerremotosBDAsynTask() {
@@ -96,7 +120,7 @@ public class FragmentList extends ListFragment implements InterfaceListFragmentA
  		double newMagnitude=Double.parseDouble(prefs.getString("magnitud_terremotos", "5"));
 		if(lastMagnitude != newMagnitude) {
 			lastMagnitude = newMagnitude;
-			queryTerremotosBDAsynTask();
+			//queryTerremotosBDAsynTask();
 		}
   	}
 	
@@ -111,7 +135,7 @@ public class FragmentList extends ListFragment implements InterfaceListFragmentA
         super.onListItemClick(l, v, position, id);
         
         Intent detalle = new Intent(getActivity(), DetailActivity.class);
-        detalle.putExtra(ID,listado.get(position).getId());
+        detalle.putExtra(ID,position);
         startActivity(detalle);
     }
 

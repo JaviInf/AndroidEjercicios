@@ -43,24 +43,25 @@ public class DetailActivity extends Activity {
 		fecha2Detalle=(TextView)findViewById(R.id.fecha2);
 		
 		Bundle extras = getIntent().getExtras();
-		
+//		
 		Integer ident = extras.getInt(FragmentList.ID);
-		EarthQuakeBD bd= new EarthQuakeBD(getApplicationContext());
-		
-		Quakes q=bd.getTerremoto(ident);
-		
-		//Rellenar datos
-		placeDetalle.setText(q.getPlace());
-		fechaDetalle.setText(String.valueOf(String.valueOf(sdf.format(q.getTime()))));
-		mangitudDetalle.setText(String.valueOf(q.getMagnitude()));
-		String lati=String.valueOf(+q.getLat()).substring(0,7);
-		String longi=String.valueOf(+q.getLongi()).substring(0,7);
-		localizacionDetalle.setText("Localizacion: "+lati+" "+longi);	
-		profundidadDetalle.setText("Profundidad: ");
-		detalleDetalle.setText(q.getDetail());
-		magDetalle.setText(String.valueOf("Magnitud: "+q.getMagnitude()));
-		fecha2Detalle.setText("Fecha: "+String.valueOf(sdf2.format(q.getTime())));
-		
+		Log.d("FRAGMENTLIST", " "+ident);
+//		EarthQuakeBD bd= new EarthQuakeBD(getApplicationContext());
+//		
+//		Quakes q=bd.getTerremoto(ident);
+//		
+//		//Rellenar datos
+//		placeDetalle.setText(q.getPlace());
+//		fechaDetalle.setText(String.valueOf(String.valueOf(sdf.format(q.getTime()))));
+//		mangitudDetalle.setText(String.valueOf(q.getMagnitude()));
+//		String lati=String.valueOf(+q.getLat()).substring(0,7);
+//		String longi=String.valueOf(+q.getLongi()).substring(0,7);
+//		localizacionDetalle.setText("Localizacion: "+lati+" "+longi);	
+//		profundidadDetalle.setText("Profundidad: ");
+//		detalleDetalle.setText(q.getDetail());
+//		magDetalle.setText(String.valueOf("Magnitud: "+q.getMagnitude()));
+//		fecha2Detalle.setText("Fecha: "+String.valueOf(sdf2.format(q.getTime())));
+//		
 		
 		
 	}
