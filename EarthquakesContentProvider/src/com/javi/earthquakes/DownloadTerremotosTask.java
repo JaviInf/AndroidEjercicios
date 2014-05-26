@@ -27,7 +27,7 @@ public class DownloadTerremotosTask extends AsyncTask<URL, Void, ArrayList<Quake
 
 	@Override
 	protected ArrayList<Quakes> doInBackground(URL... arg0) {
-		 bd= new EarthQuakeBD(contexto);
+	//	 bd= new EarthQuakeBD(contexto);
 		 ArrayList<Quakes> listadoNuevo = new ArrayList<Quakes>();;
 		Log.d("ASYNTASK ", "Json en ejecucion");
 		JSONObject json=MiJSON.realizarConsulta();
@@ -57,7 +57,8 @@ public class DownloadTerremotosTask extends AsyncTask<URL, Void, ArrayList<Quake
 				long id =bd.insert(q);
 				if(id!=-1){
 					q.setId((int)id);
-					listadoNuevo.add(q);
+				//	listadoNuevo.add(q);
+					
 				}
 				//bd.close();
 				

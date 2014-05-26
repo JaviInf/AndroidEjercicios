@@ -23,7 +23,7 @@ public class FragmentList extends ListFragment implements InterfaceListFragmentA
 //	private EarthQuakeArrayAdapter adaptador;
 	private double lastMagnitude=0;
 	public final static String ID = "_id";
-	private Cursor cursor;
+	private Cursor cursor=null;
 	private SharedPreferences prefs;
 	
 	private String[] result_columns = new String[] {
@@ -45,10 +45,11 @@ public class FragmentList extends ListFragment implements InterfaceListFragmentA
 //		setListAdapter(adaptador);
 		prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 		lastMagnitude =Double.parseDouble(prefs.getString("magnitud_terremotos", "5"));
-		//  adaptadorCursor.setViewBinder(new EarthquakeViewBinder());
-		ContentResolver cr =getActivity().getContentResolver();
-		cursor = cr.query(MyContentProvider.CONTENT_URI, result_columns,
-                null, null, null);
+		//ContentResolver cr =getActivity().getContentResolver();
+		//String where=MyContentProvider.MAGNITUDE+">=?";
+	//	String whereArgs[]={prefs.getString("magnitud_terremotos", "5")};
+		//cursor = cr.query(MyContentProvider.CONTENT_URI, result_columns,
+         //       where, whereArgs, null);
 //		adaptadorCursor=new SimpleCursorAdapter(getActivity(), R.layout.list_row_item, cursor, result_columns,to_columns);
 		adaptadorCursor= new SimpleCursorAdapter(getActivity(), R.layout.list_row_item, cursor, result_columns, to_columns, 0);
 		adaptadorCursor.setViewBinder(new EarthquakeViewBinder());
@@ -72,7 +73,7 @@ public class FragmentList extends ListFragment implements InterfaceListFragmentA
       //  adaptador.notifyDataSetChanged();
        // DownloadTerremotosTask download= new DownloadTerremotosTask(getActivity(), this);
        // download.execute();
-    ////////    queryTerremotosJSONAsynTask();
+    //    queryTerremotosJSONAsynTask();
         
         if (inState != null) {    		
 
@@ -114,11 +115,13 @@ public class FragmentList extends ListFragment implements InterfaceListFragmentA
 	@Override
   	public void onResume() {
   		super.onResume();
- 		double newMagnitude=Double.parseDouble(prefs.getString("magnitud_terremotos", "5"));
-		if(lastMagnitude != newMagnitude) {
-			lastMagnitude = newMagnitude;
-			//queryTerremotosBDAsynTask();
-		}
+ 		//double newMagnitude=Double.parseDouble(prefs.getString("magnitud_terremotos", "5"));
+ 		ContentResolver cr =getActivity().getContentResolver();
+ 		String where=MyContentProvider.MAGNITUDE+">=?";
+ 		String whereArgs[]={prefs.getString("magnitud_terremotos", "5")};
+ 		cursor = cr.query(MyContentProvider.CONTENT_URI, result_columns,
+ 		             where, whereArgs, null);
+ 		adaptadorCursor.swapCursor(cursor);
   	}
 	
 	
