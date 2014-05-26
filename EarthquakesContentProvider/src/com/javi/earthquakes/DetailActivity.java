@@ -1,7 +1,4 @@
 package com.javi.earthquakes;
-
-
-
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -18,7 +15,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-
 
 public class DetailActivity extends Activity {
 	private static final int SHOW_PREFERENCES = 0;

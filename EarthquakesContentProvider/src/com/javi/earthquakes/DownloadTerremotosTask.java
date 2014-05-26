@@ -8,6 +8,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -54,14 +56,30 @@ public class DownloadTerremotosTask extends AsyncTask<URL, Void, ArrayList<Quake
 				q.setUrl(propiedades.getString("url"));
 				q.setCreated_at(Long.valueOf((new Date().getTime())));
 				q.setUpdated_at(Long.valueOf((new Date().getTime())));
-				long id =bd.insert(q);
-				if(id!=-1){
-					q.setId((int)id);
-				//	listadoNuevo.add(q);
-					
-				}
+				//long id =bd.insert(q);
+				//this.insertarTerremoto(q);
+//				if(id!=-1){
+//					q.setId((int)id);
+//					listadoNuevo.add(q);
+//					
+//				}
 				//bd.close();
-				
+				Date date = new Date();
+				ContentValues newValues = new ContentValues();
+			    newValues.put(MyContentProvider.ID_STR, q.getId_str());
+			    newValues.put(MyContentProvider.PLACE, q.getPlace());
+			    newValues.put(MyContentProvider.TIME, q.getTime());
+			    newValues.put(MyContentProvider.DETAIL, q.getDetail());
+			    newValues.put(MyContentProvider.MAGNITUDE, q.getMagnitude());
+			    newValues.put(MyContentProvider.LAT, q.getLat());
+			    newValues.put(MyContentProvider.LONG, q.getLongi());
+			    newValues.put(MyContentProvider.URL, q.getUrl());
+			    newValues.put(MyContentProvider.CREATED_AT, String.valueOf(date.getTime()));
+			    newValues.put(MyContentProvider.UPDATED_AT, String.valueOf(date.getTime())); 
+
+				ContentResolver cr = contexto.getContentResolver();
+				cr.insert(MyContentProvider.CONTENT_URI, newValues);
+				listadoNuevo.add(0, q);	
 			}
 			return listadoNuevo;
 		
@@ -69,27 +87,19 @@ public class DownloadTerremotosTask extends AsyncTask<URL, Void, ArrayList<Quake
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return listadoNuevo;
 	}
 	
+	
 	protected void onPostExecute(ArrayList<Quakes> listadoNuevo) {
-	
-	
-//		for( int i = 0 ; i < listadoNuevo.size() ; i++ ){
-//			Log.d("ASYNTASK y BD    antessss",""+ bd.getTerremotos(0).size());
-//		//	bd.insert(listadoNuevo.get(i));
-//			Log.d("ASYNTASK y BD    despues",""+ bd.getTerremotos(0).size());
-//			Log.d("ASYNTASK", "AñADIDO nuevos terremotos a LA BD");
-//			listFragment.actualizarListadoTerremotos(listadoNuevo.get(i));
-//			}
-	
-		listFragment.actualizarListadoTerremotos(listadoNuevo);
-//		CharSequence text = "Se acaba de actualizar la lista de terremotos (Asyntask)!";
-//		int duration = Toast.LENGTH_SHORT;
-//		 
-//		Toast toast = Toast.makeText(contexto, text, duration);
-//		toast.show();
+		
+		CharSequence text = "Se acaba de actualizar la lista de terremotos dese JSON (Asyntask)!";
+		int duration = Toast.LENGTH_SHORT;
+		 
+		Toast toast = Toast.makeText(contexto, text, duration);
+		toast.show();
 		Log.d("ASYNTASK", "PROCESO FINALIZADO");
+		listFragment.actualizarListadoTerremotos(listadoNuevo);
 	}
 	
 }

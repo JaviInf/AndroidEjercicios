@@ -16,7 +16,7 @@ public class EarthquakeViewBinder implements android.support.v4.widget.SimpleCur
        int date = cursor.getColumnIndex(MyContentProvider.TIME);
 
        if (view.getId()== R.id.times) {
-    	   SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM yyyy", Locale.ENGLISH);
+    	   SimpleDateFormat sdf = new SimpleDateFormat("EEE dd MMM  yyyy HH:mm:ss zzz", Locale.ENGLISH);
     	    int time = cursor.getColumnIndex(MyContentProvider.TIME);
     	    Long timeLong = cursor.getLong(time);
     	    String dateString = sdf.format(timeLong);
