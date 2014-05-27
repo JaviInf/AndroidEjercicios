@@ -22,15 +22,12 @@ public class FragmentList extends ListFragment implements
 	public final static String ID = "_id";
 	public static final int id = 0;
 	private Cursor cursor = null;
-	// private SharedPreferences prefs;
-
 	private String[] result_columns = new String[] {
 			MyContentProvider.MAGNITUDE, MyContentProvider.PLACE,
 			MyContentProvider.TIME, MyContentProvider.ID };
 	private int[] to_columns = new int[] { R.id.magnitud, R.id.places,
 			R.id.times };
 	String nuevaMag;
-	private double magnitud = 0;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,28 +44,10 @@ public class FragmentList extends ListFragment implements
 	@Override
 	public void onActivityCreated(Bundle inState) {
 		super.onActivityCreated(inState);
-
-		// prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-		// nuevaMag=prefs.getString("magnitud_terremotos", "5");
-		// String whereArgs[]={prefs.getString("magnitud_terremotos", "5")};
-		// double lastMagnitude =
-		// Double.parseDouble(prefs.getString("magnitud_terremotos", "5"));
-		// SharedPreferences prefs =
-		// PreferenceManager.getDefaultSharedPreferences(getActivity());
-
-		// adaptadorCursor= new SimpleCursorAdapter(getActivity(),
-		// R.layout.list_row_item, cursor, result_columns, to_columns, 0);
-		// adaptadorCursor.setViewBinder(new EarthquakeViewBinder());
-		// setListAdapter(adaptadorCursor);
 		getLoaderManager().initLoader(id, null, this);
-		// queryTerremotosJSONAsynTask();
+		 queryTerremotosJSONAsynTask();
 	}
 
-	public void setMagnitud(String pMagnitud) {
-		nuevaMag = pMagnitud;
-		getLoaderManager().restartLoader(id, null, this);
-
-	}
 
 	public void queryTerremotosJSONAsynTask() {
 		DownloadTerremotosTask download = new DownloadTerremotosTask(
@@ -87,10 +66,8 @@ public class FragmentList extends ListFragment implements
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(getActivity());
-		// String lastMagnitude = prefs.getString("magnitud_terremotos", "5");
 		String where = MyContentProvider.MAGNITUDE + ">=?";
 		String whereArgs[] = { prefs.getString("magnitud_terremotos", "5") };
-		// String whereArgs[]={nuevaMag};
 		CursorLoader loader = new CursorLoader(getActivity(),
 				MyContentProvider.CONTENT_URI, result_columns, where,
 				whereArgs, MyContentProvider.TIME + " DESC");
