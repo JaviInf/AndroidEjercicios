@@ -4,9 +4,11 @@ import java.util.Locale;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.content.ContentResolver;
+import android.app.LoaderManager.LoaderCallbacks;
 import android.content.ContentUris;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,8 +18,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-public class DetailActivity extends Activity {
-	private static final int SHOW_PREFERENCES = 0;
+public class DetailActivity extends Activity implements
+LoaderCallbacks<Cursor>{
+	private static final int ident1 = 3;
 	private ActionBar actionBar;
 
 	private TextView placeDetalle,fechaDetalle,mangitudDetalle,localizacionDetalle,
@@ -33,6 +36,7 @@ public class DetailActivity extends Activity {
 	 private float LatQuake;
 	 private float LongQuake;
 	 private double magnitudeQuake;
+	 long ident;
 	 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,67 +55,14 @@ public class DetailActivity extends Activity {
 		fecha2Detalle=(TextView)findViewById(R.id.fecha2);
 		
 		Bundle extras = getIntent().getExtras();		
-		long ident = extras.getLong(FragmentList.ID);
+		ident = extras.getLong(FragmentList.ID);
 		Log.d("FRAGMENTLIST", " "+ident);
-		this.obtenerDatosTerremoto(ident);
+		getLoaderManager().initLoader(ident1, null, this);
 	
 	}
-	private void obtenerDatosTerremoto(long ident) {
-				ContentResolver cr = getContentResolver();
-				String[] result_columns = new String[] {
-				    MyContentProvider.PLACE,
-				    MyContentProvider.MAGNITUDE,
-				    MyContentProvider.TIME,
-				    MyContentProvider.LAT,
-				    MyContentProvider.LONG,
-				    MyContentProvider.DETAIL,
-				    MyContentProvider.ID
-				   };
-				Uri rowAddress =
-				ContentUris.withAppendedId(MyContentProvider.CONTENT_URI, ident);
-				String where = null;
-				String whereArgs[] = null;
-				String order = null;
-				// Return the specified rows.
-				Cursor cursor = cr.query(rowAddress, result_columns,
-				                               where, whereArgs, order);
-				 while (cursor.moveToNext()) {
-//					   
-					 int QUAKE_ID_COLUMN_INDEX = cursor.getColumnIndexOrThrow(MyContentProvider.ID);
-		              idQuake = cursor.getInt(QUAKE_ID_COLUMN_INDEX); 
-		             int QUAKE_DATE_COLUMN_INDEX = cursor.getColumnIndexOrThrow(MyContentProvider.TIME);
-		              timeQuake = cursor.getLong(QUAKE_DATE_COLUMN_INDEX);   
-		             int QUAKE_PLACE_COLUMN_INDEX = cursor.getColumnIndexOrThrow(MyContentProvider.PLACE);
-		             placeQuake = cursor.getString(QUAKE_PLACE_COLUMN_INDEX);		        
-		             int QUAKE_DETAILS_COLUMN_INDEX = cursor.getColumnIndexOrThrow(MyContentProvider.DETAIL);   
-		             quakeDetails= cursor.getString(QUAKE_DETAILS_COLUMN_INDEX);    
-		             int QUAKE_LOCATION_LAT_INDEX = cursor.getColumnIndexOrThrow(MyContentProvider.LAT);         
-		             LatQuake = cursor.getFloat(QUAKE_LOCATION_LAT_INDEX);         
-		             int QUAKE_LOCATION_LONG_INDEX = cursor.getColumnIndexOrThrow(MyContentProvider.LONG);             
-		             LongQuake= cursor.getFloat(QUAKE_LOCATION_LONG_INDEX);        
-		             int QUAKE_MAGNITUDE_INDEX = cursor.getColumnIndexOrThrow(MyContentProvider.MAGNITUDE);
-		             magnitudeQuake= cursor.getDouble(QUAKE_MAGNITUDE_INDEX);
 
-				}
-				    cursor.close();
-//				//Rellenar datos
-				placeDetalle.setText(placeQuake);
-				fechaDetalle.setText(String.valueOf(String.valueOf(sdf.format(timeQuake))));
-				mangitudDetalle.setText(String.valueOf(magnitudeQuake));
-				String lati=String.valueOf(LatQuake);
-				String longi=String.valueOf(LongQuake);
-				localizacionDetalle.setText("Localizacion: "+lati+" "+longi);	
-				profundidadDetalle.setText("Profundidad: ");
-				detalleDetalle.setText(quakeDetails);
-				magDetalle.setText(String.valueOf("Magnitud: "+magnitudeQuake));
-				fecha2Detalle.setText("Fecha: "+String.valueOf(sdf2.format(timeQuake)));
-		
-	}
-
-	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.detail, menu);
 		return true;
@@ -125,7 +76,7 @@ public class DetailActivity extends Activity {
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			Intent intent = new Intent(DetailActivity.this, PreferenciasActivity.class);
-			startActivityForResult(intent, SHOW_PREFERENCES);
+			startActivity(intent);
 
 			return true;
 		} else if(id == android.R.id.home) {
@@ -135,9 +86,64 @@ public class DetailActivity extends Activity {
         
 		return super.onOptionsItemSelected(item);
 	}
+	@Override
+	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+		Uri rowAddress =ContentUris.withAppendedId(MyContentProvider.CONTENT_URI, ident);
+		String[] result_columns = new String[] {
+			    MyContentProvider.PLACE,
+			    MyContentProvider.MAGNITUDE,
+			    MyContentProvider.TIME,
+			    MyContentProvider.LAT,
+			    MyContentProvider.LONG,
+			    MyContentProvider.DETAIL,
+			    MyContentProvider.ID
+			   };
+			String where = null;
+			String whereArgs[] = null;
+			String order = null;
+		CursorLoader loader = new CursorLoader(this,
+				rowAddress, result_columns, where,
+				whereArgs, null);
+		return loader;
+	}
+	@Override
+	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+		 while (data.moveToNext()) {
+		   
+		 int QUAKE_ID_COLUMN_INDEX = data.getColumnIndexOrThrow(MyContentProvider.ID);
+        idQuake = data.getInt(QUAKE_ID_COLUMN_INDEX); 
+       int QUAKE_DATE_COLUMN_INDEX = data.getColumnIndexOrThrow(MyContentProvider.TIME);
+        timeQuake = data.getLong(QUAKE_DATE_COLUMN_INDEX);   
+       int QUAKE_PLACE_COLUMN_INDEX = data.getColumnIndexOrThrow(MyContentProvider.PLACE);
+       placeQuake = data.getString(QUAKE_PLACE_COLUMN_INDEX);		        
+       int QUAKE_DETAILS_COLUMN_INDEX = data.getColumnIndexOrThrow(MyContentProvider.DETAIL);   
+       quakeDetails= data.getString(QUAKE_DETAILS_COLUMN_INDEX);    
+       int QUAKE_LOCATION_LAT_INDEX = data.getColumnIndexOrThrow(MyContentProvider.LAT);         
+       LatQuake = data.getFloat(QUAKE_LOCATION_LAT_INDEX);         
+       int QUAKE_LOCATION_LONG_INDEX = data.getColumnIndexOrThrow(MyContentProvider.LONG);             
+       LongQuake= data.getFloat(QUAKE_LOCATION_LONG_INDEX);        
+       int QUAKE_MAGNITUDE_INDEX = data.getColumnIndexOrThrow(MyContentProvider.MAGNITUDE);
+       magnitudeQuake= data.getDouble(QUAKE_MAGNITUDE_INDEX);
 
-	
-
-	
-
+	}
+	    data.close();
+	//Rellenar datos
+	placeDetalle.setText(placeQuake);
+	fechaDetalle.setText(String.valueOf(String.valueOf(sdf.format(timeQuake))));
+	mangitudDetalle.setText(String.valueOf(magnitudeQuake));
+	String lati=String.valueOf(LatQuake);
+	String longi=String.valueOf(LongQuake);
+	localizacionDetalle.setText("Localizacion: "+lati+" "+longi);	
+	profundidadDetalle.setText("Profundidad: ");
+	detalleDetalle.setText(quakeDetails);
+	magDetalle.setText(String.valueOf("Magnitud: "+magnitudeQuake));
+	fecha2Detalle.setText("Fecha: "+String.valueOf(sdf2.format(timeQuake)));
+		
+		
+	}
+	@Override
+	public void onLoaderReset(Loader<Cursor> loader) {
+		// TODO Auto-generated method stub
+		
+	}
 }
