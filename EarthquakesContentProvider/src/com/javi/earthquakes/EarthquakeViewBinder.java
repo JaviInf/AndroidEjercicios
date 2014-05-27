@@ -1,6 +1,7 @@
 package com.javi.earthquakes;
 
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -28,7 +29,8 @@ public class EarthquakeViewBinder implements android.support.v4.widget.SimpleCur
    	else if (view.getId()==R.id.mag){
    	    int mag = cursor.getColumnIndex(MyContentProvider.MAGNITUDE);
    	    double magnitudValor= cursor.getDouble(mag);
-   	    ((TextView) view).setText(Double.toString(magnitudValor));
+   	  DecimalFormat df = new DecimalFormat("##.00");
+   	    ((TextView) view).setText((df.format(magnitudValor)));
    	    
 	   return true;
    }

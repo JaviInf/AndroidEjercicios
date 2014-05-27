@@ -44,7 +44,7 @@ public class QueryEarthQuakesTask extends
 	}
 
 	protected void onPostExecute(ArrayList<Quakes> result) {
-		fragmento.resetearActualizarLista(result);
+	//	fragmento.resetearActualizarLista(result);
 //		CharSequence text = "Se acaba de actualizar la lista de desde la BD";
 //		int duration = Toast.LENGTH_SHORT;
 //		 

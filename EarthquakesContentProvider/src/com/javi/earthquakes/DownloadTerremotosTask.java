@@ -99,7 +99,7 @@ public class DownloadTerremotosTask extends AsyncTask<URL, Void, ArrayList<Quake
 		Toast toast = Toast.makeText(contexto, text, duration);
 		toast.show();
 		Log.d("ASYNTASK", "PROCESO FINALIZADO");
-		listFragment.actualizarListadoTerremotos(listadoNuevo);
+	//	listFragment.actualizarListadoTerremotos(listadoNuevo);
 	}
 	
 }

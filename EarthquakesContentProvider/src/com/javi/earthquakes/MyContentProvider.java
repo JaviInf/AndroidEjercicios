@@ -1,4 +1,4 @@
-package com.javi.earthquakes;
+  package com.javi.earthquakes;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;
@@ -132,7 +132,6 @@ public class MyContentProvider extends ContentProvider {
 		// If this is a row query, limit the result set to the passed in row.
 		switch (uriMatcher.match(uri)) {
 		case SINGLE_ROW:
-
 			String rowID = uri.getPathSegments().get(1);
 			queryBuilder.appendWhere(ID + "=" + rowID);
 		default:
