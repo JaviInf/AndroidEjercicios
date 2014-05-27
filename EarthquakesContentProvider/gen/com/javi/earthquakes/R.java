@@ -51,22 +51,23 @@ public final class R {
         public static final int update=0x7f020008;
     }
     public static final class id {
-        public static final int LinearLayout1=0x7f0b0009;
-        public static final int action_reload=0x7f0b000f;
-        public static final int action_settings=0x7f0b000e;
+        public static final int LinearLayout1=0x7f0b000a;
+        public static final int action_reload=0x7f0b0010;
+        public static final int action_settings=0x7f0b000f;
         public static final int container=0x7f0b0000;
         public static final int detalledetalle=0x7f0b0008;
         public static final int fecha=0x7f0b0003;
         public static final int fecha2=0x7f0b0005;
-        public static final int imagensig=0x7f0b000d;
+        public static final int fragmentoLista=0x7f0b0009;
+        public static final int imagensig=0x7f0b000e;
         public static final int locationDetalle=0x7f0b0006;
         public static final int mag=0x7f0b0004;
-        public static final int magnitud=0x7f0b000a;
+        public static final int magnitud=0x7f0b000b;
         public static final int magnitudDetalle=0x7f0b0002;
         public static final int placedetalle=0x7f0b0001;
-        public static final int places=0x7f0b000b;
+        public static final int places=0x7f0b000c;
         public static final int profundidadetalle=0x7f0b0007;
-        public static final int times=0x7f0b000c;
+        public static final int times=0x7f0b000d;
     }
     public static final class layout {
         public static final int activity_detail=0x7f030000;

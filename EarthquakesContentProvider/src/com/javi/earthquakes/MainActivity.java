@@ -7,9 +7,12 @@ import android.app.FragmentManager;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +24,7 @@ public class MainActivity extends Activity {
 	EarthQuakeBD bd;
 	FragmentList pestaña1frag;
 	Fragment pestaña2frag;
+	SharedPreferences pref;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +58,6 @@ public class MainActivity extends Activity {
 		actionBar.addTab(pestaña1);
 		actionBar.addTab(pestaña2);
 
-		
 	}
 
 	@Override

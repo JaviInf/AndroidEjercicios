@@ -4,6 +4,7 @@ package com.javi.earthquakes;
 
 import java.util.List;
 
+import android.app.FragmentManager;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
@@ -43,6 +44,9 @@ OnSharedPreferenceChangeListener {
 		boolean autoresf=pref.getBoolean("checkboxPref", true);
 		String internet=pref.getString("intervalo_refresco", "15");
 		String mag=pref.getString("magnitud_terremotos", "5");
+//	
+//		FragmentList fragment = (FragmentList) getFragmentManager().findFragmentById(R.id.fragmentoLista);
+//		fragment.setMagnitud(mag);
 		Log.d("traza", "intervalo de internet"+internet);
 		Log.d("traza", "mag de terremoto"+mag);
 
