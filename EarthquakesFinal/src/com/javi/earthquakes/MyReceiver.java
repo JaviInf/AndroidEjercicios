@@ -3,6 +3,8 @@ package com.javi.earthquakes;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.util.Log;
 
 public class MyReceiver extends BroadcastReceiver {
 	public MyReceiver() {
@@ -10,8 +12,8 @@ public class MyReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		// TODO: This method is called when the BroadcastReceiver is receiving
-		// an Intent broadcast.
-		throw new UnsupportedOperationException("Not yet implemented");
+		Uri data = intent.getData();
+		Log.d("RECEIVER", "ACABABO de detectar algo");
+		
 	}
 }

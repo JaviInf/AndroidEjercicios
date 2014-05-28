@@ -78,7 +78,7 @@ OnSharedPreferenceChangeListener {
 	    //Schedule the alarm to repeat every half hour.
 	 //  long time =prefs.getString(arg0, arg1) ;
 	    //Create a Pending Intent that will broadcast and action
-	    Intent intentToFire = new Intent(this, MyServiceEarthquakes.class);
+	    Intent intentToFire = new Intent("ALARM_ACTION");
 	    alarmIntent = PendingIntent.getBroadcast(this, 0,
 	     intentToFire, 0);
 	    //Wake up the device to fire an alarm in half an hour, and every
