@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import android.database.Cursor;
+import android.util.Log;
 import android.view.View;
 import android.widget.SimpleCursorAdapter;
 import android.widget.SimpleCursorTreeAdapter.ViewBinder;
@@ -22,18 +23,16 @@ public class EarthquakeViewBinder implements android.support.v4.widget.SimpleCur
     	    Long timeLong = cursor.getLong(time);
     	    String dateString = sdf.format(timeLong);
     	    ((TextView) view).setText(dateString);
-     
-         
          return true;
        }
-   	else if (view.getId()==R.id.mag){
+   	if (view.getId()==R.id.magnitud){
    	    int mag = cursor.getColumnIndex(MyContentProvider.MAGNITUDE);
    	    double magnitudValor= cursor.getDouble(mag);
-   	  DecimalFormat df = new DecimalFormat("##.00");
-   	    ((TextView) view).setText((df.format(magnitudValor)));
+   	    ((TextView) view).setText(	 String.format( "%.2f",magnitudValor));
    	    
 	   return true;
    }
+      
 return false;
 
 }

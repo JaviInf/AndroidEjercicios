@@ -130,7 +130,7 @@ LoaderCallbacks<Cursor>{
 	//Rellenar datos
 	placeDetalle.setText(placeQuake);
 	fechaDetalle.setText(String.valueOf(String.valueOf(sdf.format(timeQuake))));
-	mangitudDetalle.setText(String.valueOf(magnitudeQuake));
+	mangitudDetalle.setText(String.format("%.2f",magnitudeQuake));
 	String lati=String.valueOf(LatQuake);
 	String longi=String.valueOf(LongQuake);
 	localizacionDetalle.setText("Localizacion: "+lati+" "+longi);	

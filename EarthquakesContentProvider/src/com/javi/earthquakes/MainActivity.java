@@ -79,14 +79,16 @@ public class MainActivity extends Activity {
 			startActivityForResult(intent, SHOW_PREFERENCES);
 			return true;
 		} else if (id == R.id.action_reload) {
-			// DownloadTerremotosTask download= new DownloadTerremotosTask(this,
-			// (FragmentList) pestaña1frag);
-			// download.execute();
-			pestaña1frag.queryTerremotosJSONAsynTask();
+			
+		//	pestaña1frag.queryTerremotosJSONAsynTask();
 			// pestaña1frag.onResume();
-			CharSequence text = "Se acaba de actualizar la lista de terremotos JSON!";
+			CharSequence text = "Lista actualizada!";
 			int duration = Toast.LENGTH_SHORT;
 			Toast toast = Toast.makeText(this, text, duration);
+			
+			// Explicitly start My Service
+		    Intent intent = new Intent(this, MyServiceEarthquakes.class);
+			startService(intent);
 			toast.show();
 			return true;
 		}

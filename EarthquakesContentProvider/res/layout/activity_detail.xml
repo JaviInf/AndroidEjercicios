@@ -30,6 +30,7 @@
                 android:layout_width="41dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:layout_weight="0.18"
                 android:background="@drawable/rounded_edittext"
                 android:padding="10dp"
                 android:text="Magnitud"

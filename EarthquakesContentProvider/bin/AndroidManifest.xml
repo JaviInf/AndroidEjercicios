@@ -26,19 +26,28 @@
         </activity>
         <activity
             android:name="com.javi.earthquakes.PreferenciasActivity"
-            android:label="@string/title_activity_preferencias"
-           >
+            android:label="@string/title_activity_preferencias" >
         </activity>
         <activity
             android:name="com.javi.earthquakes.DetailActivity"
-            android:parentActivityName="com.javi.earthquakes.MainActivity"  
-            android:label="@string/title_activity_detail" >
+            android:label="@string/title_activity_detail"
+            android:parentActivityName="com.javi.earthquakes.MainActivity" >
             <meta-data
-        android:name="android.support.PARENT_ACTIVITY"
-        android:value="com.javi.earthquakes.MainActivity" />
-             
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.javi.earthquakes.MainActivity" />
         </activity>
-        <provider android:name=".MyContentProvider"  android:exported="false" android:authorities="com.javi.earthquakes.skeletondatabaseprovider"/>
+
+        <provider
+            android:name="com.javi.earthquakes.MyContentProvider"
+            android:authorities="com.javi.earthquakes.skeletondatabaseprovider"
+            android:exported="false" />
+
+        <service
+            android:name="com.javi.earthquakes.MyServiceEarthquakes"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="com.javi.earthquakes.MY_SERVICE_PERMISION" >
+        </service>
     </application>
 
 </manifest>

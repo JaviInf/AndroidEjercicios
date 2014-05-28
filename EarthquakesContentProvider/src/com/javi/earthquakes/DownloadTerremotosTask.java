@@ -30,7 +30,7 @@ public class DownloadTerremotosTask extends AsyncTask<URL, Void, ArrayList<Quake
 	@Override
 	protected ArrayList<Quakes> doInBackground(URL... arg0) {
 	//	 bd= new EarthQuakeBD(contexto);
-		 ArrayList<Quakes> listadoNuevo = new ArrayList<Quakes>();;
+		 ArrayList<Quakes> listadoNuevo = new ArrayList<Quakes>();
 		Log.d("ASYNTASK ", "Json en ejecucion");
 		JSONObject json=MiJSON.realizarConsulta();
 		//Log.d("JSON", json.toString());
@@ -93,11 +93,11 @@ public class DownloadTerremotosTask extends AsyncTask<URL, Void, ArrayList<Quake
 	
 	protected void onPostExecute(ArrayList<Quakes> listadoNuevo) {
 		
-		CharSequence text = "Se acaba de actualizar la lista de terremotos dese JSON (Asyntask)!";
-		int duration = Toast.LENGTH_SHORT;
-		 
-		Toast toast = Toast.makeText(contexto, text, duration);
-		toast.show();
+//		CharSequence text = "Se acaba de actualizar la lista de terremotos dese JSON (Asyntask)!";
+//		int duration = Toast.LENGTH_SHORT;
+//		 
+//		Toast toast = Toast.makeText(contexto, text, duration);
+//		toast.show();
 		Log.d("ASYNTASK", "PROCESO FINALIZADO");
 	//	listFragment.actualizarListadoTerremotos(listadoNuevo);
 	}

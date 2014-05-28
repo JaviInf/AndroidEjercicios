@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class FragmentList extends ListFragment implements
 		LoaderCallbacks<Cursor> {
@@ -37,17 +38,22 @@ public class FragmentList extends ListFragment implements
 				R.layout.list_row_item, cursor, result_columns, to_columns, 0);
 		adaptadorCursor.setViewBinder(new EarthquakeViewBinder());
 		setListAdapter(adaptadorCursor);
-
+		 getLoaderManager().initLoader(id, null, this);
 		return super.onCreateView(inflater, container, savedInstanceState);
 	}
 
 	@Override
 	public void onActivityCreated(Bundle inState) {
 		super.onActivityCreated(inState);
-		getLoaderManager().initLoader(id, null, this);
-		 queryTerremotosJSONAsynTask();
+		getActivity().startService(new Intent(getActivity(),MyServiceEarthquakes.class));
+		Toast.makeText(getActivity(),"Se acaba de actualizar la lista !",Toast.LENGTH_SHORT).show();
+		
 	}
-
+	
+	public void refrescarTerremotosService(){
+		getActivity().startService(new Intent(getActivity(),MyServiceEarthquakes.class));
+		Toast.makeText(getActivity(),"Se acaba de actualizar la lista!",Toast.LENGTH_SHORT).show();
+}
 
 	public void queryTerremotosJSONAsynTask() {
 		DownloadTerremotosTask download = new DownloadTerremotosTask(
@@ -58,7 +64,6 @@ public class FragmentList extends ListFragment implements
 	@Override
 	public void onResume() {
 		super.onResume();
-		
 		getLoaderManager().restartLoader(id, null, this);
 	}
 
