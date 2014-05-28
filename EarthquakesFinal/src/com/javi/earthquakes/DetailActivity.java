@@ -16,6 +16,7 @@ import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 public class DetailActivity extends Activity implements
@@ -54,6 +55,19 @@ LoaderCallbacks<Cursor>{
 		magDetalle=(TextView)findViewById(R.id.mag);
 		fecha2Detalle=(TextView)findViewById(R.id.fecha2);
 		
+		detalleDetalle.setOnClickListener(new View.OnClickListener() {
+
+	        @Override
+			public void onClick(View view) {
+
+	         Log.d("DETAIL ACTIVITY", "WebView");
+	         Intent intent = new Intent(DetailActivity.this, WebViewActivity.class);
+	         intent.putExtra("URL", quakeDetails);
+				startActivity(intent);
+	        }
+
+	    });
+
 		Bundle extras = getIntent().getExtras();		
 		ident = extras.getLong(FragmentList.ID);
 		Log.d("FRAGMENTLIST", " "+ident);
@@ -75,8 +89,8 @@ LoaderCallbacks<Cursor>{
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
-			Intent intent = new Intent(DetailActivity.this, PreferenciasActivity.class);
-			startActivity(intent);
+//			Intent intent = new Intent(DetailActivity.this, PreferenciasActivity.class);
+//			startActivity(intent);
 
 			return true;
 		} else if(id == android.R.id.home) {

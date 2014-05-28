@@ -36,7 +36,7 @@ public class MyServiceEarthquakes extends Service {
 						q.setId_str(earthquake.getString("id"));
 						q.setPlace(propiedades.getString("place"));
 						q.setTime(propiedades.getLong("time"));
-						q.setDetail(propiedades.getString("detail"));
+						q.setDetail(propiedades.getString("url"));//detail
 						q.setMagnitude(propiedades.getDouble("mag"));
 						q.setLat(coordinates.getDouble(1));
 						q.setLongi(coordinates.getDouble(0));
@@ -69,7 +69,7 @@ public class MyServiceEarthquakes extends Service {
 			}
 		});
 		t.start();
-	    return Service.START_STICKY;
+		return super.onStartCommand(intent, flags, startId);
 	}
 	
 	@Override

@@ -70,19 +70,14 @@ OnSharedPreferenceChangeListener {
 	
 	private void setInexactRepeatingAlarm(long time) {
 		Log.d("ALARM", "setInexactRepeatingAlarm");
-	    //Get a reference to the Alarm Manager
 	    alarmManager =
 	    (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-	    //Set the alarm to wake the device if sleeping.
 	    int alarmType = AlarmManager.RTC;
-	    //Schedule the alarm to repeat every half hour.
-	 //  long time =prefs.getString(arg0, arg1) ;
-	    //Create a Pending Intent that will broadcast and action
-	    Intent intentToFire = new Intent("ALARM_ACTION");
-	    alarmIntent = PendingIntent.getBroadcast(this, 0,
+	   
+	    Intent intentToFire = new Intent(this, MyServiceEarthquakes.class);
+	    alarmIntent = PendingIntent.getService(this, 0,
 	     intentToFire, 0);
-	    //Wake up the device to fire an alarm in half an hour, and every
-	    //half-hour after that.
+	   
 	    alarmManager.setInexactRepeating(alarmType,
 	                              0,
 	                              10000,

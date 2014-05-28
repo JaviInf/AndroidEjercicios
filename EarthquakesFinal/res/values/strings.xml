@@ -7,6 +7,7 @@
     <string name="title_activity_preferencias">PreferenciasActivity</string>
     <string name="title_activity_detalle">DetalleActivity</string>
     <string name="title_activity_detail">Detalles de Terremoto</string>
-	<string name="actualizar">Actualizar</string>
-    
+    <string name="actualizar">Actualizar</string>
+    <string name="title_activity_web_view">WebViewActivity</string>
+
 </resources>

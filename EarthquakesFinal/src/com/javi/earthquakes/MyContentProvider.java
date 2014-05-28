@@ -80,9 +80,9 @@ public class MyContentProvider extends ContentProvider {
 	public String getType(Uri uri) {
 		switch (uriMatcher.match(uri)) {
 		case ALLROWS:
-			return "vnd.android.cursor.dir/vnd.paad.provider.elemental";
+			return "vnd.android.cursor.dir/vnd.com.javi.earthquakes";
 		case SINGLE_ROW:
-			return "vnd.android.cursor.it!em/vnd.paad.provider.elemental";
+			return "vnd.android.cursor.it!em/vnd.com.javi.earthquakes";
 		default:
 			throw new IllegalArgumentException("Unsupported URI: " + uri);
 		}
@@ -100,7 +100,7 @@ public class MyContentProvider extends ContentProvider {
 		long rowID = db.insert(EarthquakesDBOpenHelper.DATABASE_TABLE, "quake",
 				values);
 		// Construct and return the URI of the newly inserted row.
-		if (rowID > 0) {
+		if (rowID > -1) {
 			// Construct and return the URI of the newly inserted row.
 			Uri insertedId = ContentUris.withAppendedId(CONTENT_URI, rowID);
 			// Notify any observers of the change in the data set.
@@ -142,6 +142,7 @@ public class MyContentProvider extends ContentProvider {
 		// Execute the query.
 		Cursor cursor = queryBuilder.query(db, projection, selection,
 				selectionArgs, null, null, sortOrder);
+		cursor.setNotificationUri(getContext().getContentResolver(), uri);
 		return cursor;
 	}
 

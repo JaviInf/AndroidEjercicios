@@ -1,6 +1,7 @@
 package com.javi.earthquakes;
 
 import android.app.ListFragment;
+import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
 import android.content.Intent;
@@ -21,7 +22,7 @@ public class FragmentList extends ListFragment implements
 
 	private SimpleCursorAdapter adaptadorCursor;
 	public final static String ID = "_id";
-	public static final int id = 0;
+	public static final int LOADER_ID = 0;
 	private Cursor cursor = null;
 	private String[] result_columns = new String[] {
 			MyContentProvider.MAGNITUDE, MyContentProvider.PLACE,
@@ -35,10 +36,12 @@ public class FragmentList extends ListFragment implements
 			Bundle savedInstanceState) {
 
 		adaptadorCursor = new SimpleCursorAdapter(getActivity(),
-				R.layout.list_row_item, cursor, result_columns, to_columns, 0);
+				R.layout.list_row_item, null, result_columns, to_columns, 0);
 		adaptadorCursor.setViewBinder(new EarthquakeViewBinder());
 		setListAdapter(adaptadorCursor);
-		 getLoaderManager().initLoader(id, null, this);
+//		 getLoaderManager().initLoader(LOADER_ID, null, this);
+		 LoaderManager lm = getLoaderManager();
+		    lm.initLoader(LOADER_ID, null, this);
 		return super.onCreateView(inflater, container, savedInstanceState);
 	}
 
@@ -64,7 +67,7 @@ public class FragmentList extends ListFragment implements
 	@Override
 	public void onResume() {
 		super.onResume();
-		getLoaderManager().restartLoader(id, null, this);
+		getLoaderManager().restartLoader(LOADER_ID, null, this);
 	}
 
 	@Override
