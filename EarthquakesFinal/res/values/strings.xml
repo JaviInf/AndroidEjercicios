@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Earthquakes</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Configuracion</string>
+    <string name="title_activity_preferencias">PreferenciasActivity</string>
+    <string name="title_activity_detalle">DetalleActivity</string>
+    <string name="title_activity_detail">Detalles de Terremoto</string>
+	<string name="actualizar">Actualizar</string>
+    
+</resources>
