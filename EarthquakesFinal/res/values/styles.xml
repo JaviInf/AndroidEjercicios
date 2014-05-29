@@ -24,6 +24,7 @@
     <color name="titlebackgroundcolor">#00abd7</color>
     <color name="titlecolor">#666666</color>
     <color name="silver">#c0c0c0</color>
+    <color name="red">#ffff0000</color>
 
     <style name="PreferencesTheme">
         <item name="android:background">#eaeaea</item>

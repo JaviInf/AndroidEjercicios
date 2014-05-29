@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import android.database.Cursor;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 import android.widget.SimpleCursorAdapter;
@@ -29,6 +30,12 @@ public class EarthquakeViewBinder implements android.support.v4.widget.SimpleCur
    	    int mag = cursor.getColumnIndex(MyContentProvider.MAGNITUDE);
    	    double magnitudValor= cursor.getDouble(mag);
    	    ((TextView) view).setText(	 String.format( "%.2f",magnitudValor));
+
+   	 if (magnitudValor>=5)   ((TextView) view).setBackgroundResource(R.drawable.rounded_edittext_red);
+	    else if (magnitudValor>3)   ((TextView) view).setBackgroundResource(R.drawable.rounded_edittext_green);
+	    else if (magnitudValor>2)   ((TextView) view).setBackgroundResource(R.drawable.ounded_edittext_yellow);
+	    else  ((TextView) view).setBackgroundResource(R.drawable.rounded_edittext);
+
    	    
 	   return true;
    }

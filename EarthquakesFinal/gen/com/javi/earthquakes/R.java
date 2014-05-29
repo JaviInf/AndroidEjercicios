@@ -21,6 +21,7 @@ public final class R {
         /**  Definicion de colores 
          */
         public static final int gray=0x7f090000;
+        public static final int red=0x7f090005;
         public static final int silver=0x7f090004;
         public static final int titlebackgroundcolor=0x7f090002;
         public static final int titlecolor=0x7f090003;
@@ -47,8 +48,11 @@ public final class R {
         public static final int ic_menu_name=0x7f020004;
         public static final int list=0x7f020005;
         public static final int mapa2=0x7f020006;
-        public static final int rounded_edittext=0x7f020007;
-        public static final int update=0x7f020008;
+        public static final int ounded_edittext_yellow=0x7f020007;
+        public static final int rounded_edittext=0x7f020008;
+        public static final int rounded_edittext_green=0x7f020009;
+        public static final int rounded_edittext_red=0x7f02000a;
+        public static final int update=0x7f02000b;
     }
     public static final class id {
         public static final int LinearLayout1=0x7f0b000c;
