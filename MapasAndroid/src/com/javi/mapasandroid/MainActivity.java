@@ -36,7 +36,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.mapa);
 		
 		 lat= (TextView) findViewById(R.id.latitud);
 		 longi= (TextView) findViewById(R.id.longitud);
