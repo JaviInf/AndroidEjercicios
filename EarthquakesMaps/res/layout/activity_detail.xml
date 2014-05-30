@@ -1,0 +1,104 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.javi.earthquakes.DetailActivity"
+    tools:ignore="MergeRootFrame"
+     android:background="@color/gray" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/placedetalle"
+                android:layout_width="119dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="lugar"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/magnitudDetalle"
+                android:layout_width="41dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rounded_edittext"
+                android:bottom="2dp"
+                android:left="6dp"
+                android:paddingTop="15dp"
+                android:right="0dp"
+                android:text="Magnitud"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="bold"
+                android:top="2dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="158dp"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/fecha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="fecha" 
+                android:textColor="@android:color/holo_blue_dark"
+                android:drawableLeft="@android:drawable/ic_lock_idle_alarm" />
+
+           
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/mag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Magnitud:"
+            android:layout_marginTop="10dp"
+              android:paddingLeft="10dp"  />
+
+        <TextView
+            android:id="@+id/fecha2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="fechaFormato"
+             android:paddingLeft="10dp" 
+             />
+
+        <TextView
+            android:id="@+id/locationDetalle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="localizacion" 
+            android:paddingLeft="10dp"/>
+
+        <TextView
+            android:id="@+id/profundidadetalle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="profundidad"
+            android:layout_marginTop="5dp"
+             android:paddingLeft="10dp" />
+
+        <TextView
+            android:id="@+id/detalledetalle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="detalle"
+             android:layout_marginTop="15dp" 
+              android:layout_marginLeft="25dp"
+              android:drawableLeft="@android:drawable/stat_sys_warning"   />
+
+    </LinearLayout>
+
+</FrameLayout>
